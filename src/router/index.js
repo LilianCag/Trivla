@@ -11,7 +11,7 @@ const routes = [
         name: 'home',
         component: Home,
         meta: {
-            title: "Bienvenue sur Trivla"
+            title: "Bienvenue sur Trivla - Trivla"
         }
     },
     {
@@ -31,5 +31,10 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
+
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title;
+    next(next);
+})
 
 export default router
