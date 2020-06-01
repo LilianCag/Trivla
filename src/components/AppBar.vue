@@ -11,7 +11,6 @@
           class="shrink mr-2"
           contain
           src="../assets/logo-trivla.png"
-          transition="scale-transition"
           width="150"
           @click="goToHome"
         />

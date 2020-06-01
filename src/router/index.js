@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SearchView from '../views/SearchView.vue'
+import QuizView from '../views/QuizView.vue'
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,14 @@ const routes = [
         component: SearchView,
         meta: {
             title: "Rechercher - Trivla"
+        }
+    },
+    {
+        path: '/quiz',
+        name: 'quiz',
+        component: QuizView,
+        meta: {
+            title: "Quiz (en test) - Trivla"
         }
     }
 
