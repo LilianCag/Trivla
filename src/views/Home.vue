@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    Ici 2
+    Ici salut les gens
   </v-container>
 </template>
 
