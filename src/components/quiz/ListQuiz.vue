@@ -2,7 +2,7 @@
 <v-content>
   <v-card v-if="isPaused" style="width:50%; margin:auto; text-align:center;">
     Jeu en pause<br>
-    <v-btn @click="restart">Reprendre</v-btn>
+    <v-btn @click="restart">Reprendre :)</v-btn>
   </v-card>
   <v-card id="gameCard" style="width:50%; margin:auto;" :disabled="cardDisabled">
     <div id="gameScene" v-if="isOn">
