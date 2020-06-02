@@ -7,10 +7,23 @@ import SignUp from '../components/users/SignUp.vue'
 import QuizzCreation from '../views/QuizzCreation.vue'
 import Error404 from '../components/404.vue'
 import QuizView from '../views/QuizView.vue'
+import UserProfile from '../components/users/UserProfile.vue'
 
 Vue.use(VueRouter);
 
 const routes = [
+
+    {
+        path: '/profile',
+        name: 'profile',
+        component: UserProfile,
+        meta: {
+            title: "Profile - Trivla"
+        }
+    },
+
+
+    
     {
         path: '/',
         name: 'home',

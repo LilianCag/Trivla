@@ -21,18 +21,27 @@
       <div>
         <!--Bouton de recherche -->
         <v-btn
-          target="_blank"
           text
           @click="goToSearch">
-          <span class="mr-2">Rechercher</span>
+          <span >Rechercher</span>
         </v-btn>
 
         <!-- Bouton de création de quizz -->
         <v-btn
-          target="_blank"
           text
           @click="goToQuizzCreation">
-          <span class="mr-2">Créer un quizz</span>
+          <span >Créer un quizz</span>
+        </v-btn>
+      </div>
+
+      
+      <!-- MENU -->
+      <div>
+        <!--Bouton de profil -->
+        <v-btn
+          text
+          @click="goToProfile">
+          <span>Profil</span>
         </v-btn>
       </div>
 
@@ -61,6 +70,9 @@ export default {
       goToQuizzCreation(){
         this.$router.push("/createquizz");
       },
+      goToProfile() {
+        this.$router.push("/profile")
+      }
     }
 }
 </script>
