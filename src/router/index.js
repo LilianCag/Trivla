@@ -6,7 +6,7 @@ import SignIn from '../components/users/SignIn.vue'
 import SignUp from '../components/users/SignUp.vue'
 import QuizzCreation from '../views/QuizzCreation.vue'
 import Error404 from '../components/404.vue'
-
+import QuizView from '../views/QuizView.vue'
 
 Vue.use(VueRouter);
 
@@ -16,7 +16,7 @@ const routes = [
         name: 'home',
         component: Home,
         meta: {
-            title: "Bienvenue sur Trivla"
+            title: "Bienvenue sur Trivla - Trivla"
         }
     },
     {
@@ -59,6 +59,12 @@ const routes = [
         {
           title: "Error 404 - Page not found " 
         },
+        path: '/quiz',
+        name: 'quiz',
+        component: QuizView,
+        meta: {
+            title: "Quiz (en test) - Trivla"
+        }
     }
 ];
 
@@ -67,5 +73,10 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
+
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title;
+    next(next);
+})
 
 export default router
