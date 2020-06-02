@@ -7,7 +7,7 @@
         >
             <v-layout align-center justify-center row  pa-3 style="margin-bottom:150px">
                 <v-flex xs12 md8>
-                <p style="font-size:48px;color:#4E2CD8">Erreur 404 </p>
+                <p style="font-size:48px;color:#4E2CD8;font-weight:bold;">Erreur 404 </p>
                 <p
                     style="font-size:32px;color:#4E2CD8"
                 >La page que vous recherchez n'est pas disponible ou n'existe pas ! ¯\_(ツ)_/¯</p>
