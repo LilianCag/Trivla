@@ -1,13 +1,19 @@
 <template>
-  <v-card class="d-inline-block mx-auto">
+  <v-card class="d-inline-block mx-auto" color="#4E2CD8">
     <v-container>
-          <v-img
-            height="200"
-            width="300"
-            src="../assets/David_GoodEnough.png"
-          ></v-img>
+       <v-avatar size="350">
+      <img 
+        src="../../assets/David_GoodEnough2.png"
+        alt="David"
+      >
+       </v-avatar>
+
+
     </v-container>
   </v-card>
+
+
+
 </template>
 
 <script>
