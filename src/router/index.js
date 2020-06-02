@@ -58,7 +58,9 @@ const routes = [
         meta:
         {
           title: "Error 404 - Page not found " 
-        },
+        }
+    },
+    {
         path: '/quiz',
         name: 'quiz',
         component: QuizView,
