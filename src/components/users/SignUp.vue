@@ -14,7 +14,7 @@
 
       <!-- Champs de l'id et du mot de passe -->
       <v-card-text>
-        <v-form>
+        <v-form @submit.prevent="onSignUp">
           <v-text-field
             label="Nom de joueur*"
             name="login"
@@ -83,19 +83,27 @@ export default {
     source: String
   },
   computed: {
+    //Compare les mots de passe
     comparePasswords() {
       return this.password !== this.confirmPassword ? 'Les mots de passe ne correspondent pas' : true;
+    },
+    //Retourne l'utilisateur
+    user() {
+      return this.$store.getters.user
+    }
+  },
+  watch: {
+    //Ferme la boîte de dialogue après inscription
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.dialog=false;
+      }
     }
   },
   methods: {
+    //Appelle la fonction d'inscription dans le store
     onSignUp() {
-      // Vuex
-      console.log({
-        login: this.login,
-        email: this.email,
-        password: this.password,
-        confirmPassword: this.confirmPassword
-      });
+      this.$store.dispatch('signUserUp', {email: this.email, password : this.password})
     }
   }
 };

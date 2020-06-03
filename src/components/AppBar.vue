@@ -50,6 +50,16 @@ export default {
     components : { 
       SignIn
     },
+    computed: {
+      menuItems() {
+        if(this.userIsAuthenticated()) {
+          return true
+        } else { return false }
+      },
+      userIsAuthenticated() {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+    },
     methods: {
       //Renvoie vers l'accueil
       goToHome(){
