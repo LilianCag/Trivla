@@ -5,12 +5,16 @@
       <v-card flat class="pa-5" color="#E1DBF9">
         <v-layout row>
           <v-flex class="pa-5 ProfilePage">
+
+            <!-- Image de profil de l'utilisateur -->
             <v-avatar size="300">
               <img src="../../assets/David_GoodEnough2.png" alt="David" />
             </v-avatar>
           </v-flex>
 
           <v-flex pa-5>
+
+            <!-- Infos de l'utilisateur -->
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Pseudo </span>
               <br/>
