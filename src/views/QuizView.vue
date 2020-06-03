@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        a
+        <MCQ/>
     </v-container>
 </template>
 

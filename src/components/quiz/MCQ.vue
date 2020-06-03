@@ -3,7 +3,6 @@
     <v-layout fluid mt-5>
       <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
         <v-card
-          flat
         >
             <v-layout align-center pa-3 style="margin-bottom:50px">
                 <v-flex xs12 md12>
@@ -55,7 +54,7 @@
 <script>
 export default {
   
-    name:"QuizHistoire",
+    name:"MCQ",
     data() {
     return{
         tab_question: [

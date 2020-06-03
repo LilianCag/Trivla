@@ -5,7 +5,7 @@
         <v-row >
           <v-col
             v-for="categorie in tab_questionnaires"
-            :key="categorie"
+            :key="tab_questionnaires[tab_questionnaires.indexOf(categorie)].title"
             cols="12"
             md="3"
           >

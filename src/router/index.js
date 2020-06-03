@@ -7,7 +7,7 @@ import SignUp from '../components/users/SignUp.vue'
 import QuizzCreation from '../views/QuizzCreation.vue'
 import Error404 from '../components/404.vue'
 import QuizView from '../views/QuizView.vue'
-import QuizHistoire from '../components/quiz/QuizHistoire.vue'
+import MCQ from '../components/quiz/MCQ.vue'
 
 Vue.use(VueRouter);
 
@@ -72,7 +72,7 @@ const routes = [
     {
         path: '/history',
         name: 'history',
-        component: QuizHistoire,
+        component: MCQ,
         meta: {
             title: "Quiz Histoire - Trivla"
         }
