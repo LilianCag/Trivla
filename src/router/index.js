@@ -21,9 +21,6 @@ const routes = [
             title: "Profile - Trivla"
         }
     },
-
-
-    
     {
         path: '/',
         name: 'home',
