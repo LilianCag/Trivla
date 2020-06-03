@@ -5,12 +5,12 @@
 
         <!-- Bouton d'affichage de la popup de création de compte -->
         <template v-slot:activator="{on}">
-            <v-btn v-on="on" class="white--text" color="#6B4EE0"> Créer un compte </v-btn>
+            <v-btn v-on="on" class="white--text" color="#4E2CD8"> Créer un compte </v-btn>
         </template>
 
           <!-- Toolbar de la popup de connexion -->
           <v-card>
-            <v-toolbar color="#6B4EE0" dark flat >
+            <v-toolbar color="#4E2CD8" dark flat >
               <v-toolbar-title>Créer un compte</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
@@ -22,7 +22,7 @@
                   label="Veuillez entrer un nom de joueur*"
                   name="login"
                   prepend-icon="mdi-account"
-                  color="#6B4EE0"
+                  color="#4E2CD8"
                   type="text"
                   required></v-text-field>
 
@@ -31,7 +31,7 @@
                   label="Veuillez entrer votre mot de passe*"
                   name="password"
                   prepend-icon="mdi-lock"
-                  color="#6B4EE0"
+                  color="#4E2CD8"
                   type="password"
                   required></v-text-field>
 
@@ -40,7 +40,7 @@
                   label="Veuillez confirmer votre mot de passe*"
                   name="passwordcheck"
                   prepend-icon="mdi-lock"
-                  color="#6B4EE0"
+                  color="#4E2CD8"
                   type="password"
                   required></v-text-field>
 
@@ -49,9 +49,9 @@
 
               <!-- Boutons de création d'un compte et de connexion -->
               <v-card-actions justify>
-                <v-btn class="white--text" color="#6B4EE0" @click="dialog = false"> Fermer </v-btn>
+                <v-btn class="white--text" color="#4E2CD8" @click="dialog = false"> Fermer </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn class="white--text" color="#6B4EE0" > Créer un compte</v-btn>
+                <v-btn class="white--text" color="#4E2CD8" > Créer un compte</v-btn>
               </v-card-actions>
 
           </v-card>

@@ -6,8 +6,6 @@
 
 <script>
 export default {
-  name: "QuizzCreation",
-      data(){
-      }
-}
+  name: "QuizzCreation"
+};
 </script>
