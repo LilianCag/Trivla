@@ -9,12 +9,12 @@
             cols="12"
             md="3"
           >
-            <v-item v-slot:default="{ active, toggle }">
+            <v-item>
               <v-card
                 class="d-flex align-center"
                 width="500px"
                 height="200px"
-                @click="toggle"    
+                @click="goTo(categorie.url)"  
                 :color="categorie.color"
                        
               >
@@ -43,7 +43,7 @@
           {
             title: "Histoire",
             color: "#8269E4",
-            url: ""
+            url: "/history"
           },
           {
             title: "Géographie",
@@ -102,7 +102,14 @@
           },
         ]
       }
+    },
+    methods: {
+      goTo(url){
+        this.$router.push(url);
+      }
+        
     }
+
   }
   
 </script>
