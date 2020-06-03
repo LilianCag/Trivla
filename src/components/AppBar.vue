@@ -27,12 +27,12 @@
           <span class="mr-2">Rechercher</span>
         </v-btn>
 
-        <!-- Bouton de création de quizz -->
+        <!-- Bouton de création de question -->
         <v-btn
           target="_blank"
           text
-          @click="goToQuizzCreation">
-          <span class="mr-2">Créer un quizz</span>
+          @click="goToQuestionCreation">
+          <span class="mr-2">Créer une question</span>
         </v-btn>
       </div>
 
@@ -58,8 +58,8 @@ export default {
       goToSearch(){
         this.$router.push("/search");
       },
-      goToQuizzCreation(){
-        this.$router.push("/createquizz");
+      goToQuestionCreation(){
+        this.$router.push("/createquestion");
       },
     }
 }

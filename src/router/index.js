@@ -4,9 +4,10 @@ import Home from '../views/Home.vue'
 import SearchView from '../views/SearchView.vue'
 import SignIn from '../components/users/SignIn.vue'
 import SignUp from '../components/users/SignUp.vue'
-import QuizzCreation from '../views/QuizzCreation.vue'
+import QuestionCreation from '../views/QuestionCreation.vue'
 import Error404 from '../components/404.vue'
 import QuizView from '../views/QuizView.vue'
+import QuizHistoire from '../components/quiz/QuizHistoire.vue'
 
 Vue.use(VueRouter);
 
@@ -44,11 +45,11 @@ const routes = [
         }
     },
     {
-        path: '/createquizz',
-        name: 'createaquizz',
-        component: QuizzCreation,
+        path: '/createquestion',
+        name: 'createquestion',
+        component: QuestionCreation,
         meta: {
-            title: "Créer un quizz - Trivla"
+            title: "Créer une question - Trivla"
         },
     },
     {
@@ -66,6 +67,14 @@ const routes = [
         component: QuizView,
         meta: {
             title: "Quiz (en test) - Trivla"
+        }
+    },
+    {
+        path: '/history',
+        name: 'history',
+        component: QuizHistoire,
+        meta: {
+            title: "Quiz Histoire - Trivla"
         }
     }
 ];
