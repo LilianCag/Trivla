@@ -1,16 +1,14 @@
 <template>
     <v-container>
-        <ListQuiz/>
+        a
     </v-container>
 </template>
 
 <script>
-import ListQuiz from '../components/quiz/ListQuiz';
 
 export default {
     name: 'QuizView',
     components: {
-        ListQuiz
     }
 }
 </script>
