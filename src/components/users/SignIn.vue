@@ -1,7 +1,7 @@
 <template>
    
    
-   
+  
         <v-dialog v-model="dialog" max-width="600px">
 
           <!-- Bouton d'affichage de la popup de connexion -->

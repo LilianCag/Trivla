@@ -25,7 +25,7 @@
         <!-- Bouton de création de quizz -->
         <v-btn
           text
-          @click="goToQuizzCreation">
+          @click="goToQuestionCreation">
           <span >Soumettre une question</span>
         </v-btn>
         <v-snackbar
@@ -71,9 +71,9 @@ export default {
       goToHome(){
         this.$router.push("/");
       },
-      goToQuizzCreation(){
+      goToQuestionCreation(){
         if(this.isUserAuthenticated()) {
-          this.$router.push("/createquizz");
+          this.$router.push("/createquestion");
         }
         else {
           this.snackbar = true
