@@ -35,7 +35,7 @@
 
                 <!-- Boutons de création d'un compte et de connexion -->
                 <v-card-actions>
-                  <SignUp style="margin-left:0px; padding:0;">
+                  <SignUp style="margin-left:0px; padding:0;"/>
       
 
                   <v-spacer></v-spacer>
