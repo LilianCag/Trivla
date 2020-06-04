@@ -14,7 +14,7 @@ new Vue({
   render: h => h(App),
   created() {
     firebase.initializeApp({
-      apiKey: 'AIzaSyDnTEZNJSwUZO_h5MHDp0ta4jIfHrRMl5I',
+      apiKey: 'xxxxxxxxxxxxx',
       authDomain: 'trivla.firebaseapp.com',
       databaseURL: 'https://trivla.firebaseio.com',
       projectId: 'trivla',

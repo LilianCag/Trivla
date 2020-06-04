@@ -25,12 +25,11 @@
           text
           @click="goToQuestionCreation">
           <span >Créer une question</span>
-        </v-btn>
-      </div>
 
-      
-      <!-- MENU -->
-      <div>
+        </v-btn>
+        <v-snackbar v-model="snackbar">Connectez-vous pour soumettre une question <SignIn/></v-snackbar>
+      </div>
+      <div v-if="userIsAuthenticated == true">
         <!--Bouton de profil -->
           <v-btn v-if="userIsAuthenticated"
             text
@@ -38,10 +37,11 @@
             <span>Profil</span>
           </v-btn>
       </div>
-
       <!-- Bouton de connexion -->
-      <v-spacer></v-spacer>
+      <div v-if="userIsAuthenticated == false">
         <SignIn />
+      </div>
+      
     </v-app-bar>
 
 </template>
@@ -53,12 +53,12 @@ export default {
     components : { 
       SignIn
     },
+    data() {
+      return {
+        snackbar:false,
+      }
+    },
     computed: {
-      menuItems() {
-        if(this.userIsAuthenticated()) {
-          return true
-        } else { return false }
-      },
       userIsAuthenticated() {
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       },
@@ -70,9 +70,13 @@ export default {
       },
       goToQuestionCreation(){
         this.$router.push("/createquestion");
+
       },
       goToProfile() {
         this.$router.push("/profile")
+      },
+      isUserAuthenticated() {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     }
 }
