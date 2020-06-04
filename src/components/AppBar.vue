@@ -19,12 +19,6 @@
 
       <!-- MENU -->
       <div>
-        <!--Bouton de recherche -->
-        <v-btn
-          text
-          @click="goToSearch">
-          <span >Rechercher</span>
-        </v-btn>
 
         <!-- Bouton de création de question -->
         <v-btn
@@ -38,11 +32,11 @@
       <!-- MENU -->
       <div>
         <!--Bouton de profil -->
-        <v-btn
-          text
-          @click="goToProfile">
-          <span>Profil</span>
-        </v-btn>
+          <v-btn v-if="userIsAuthenticated"
+            text
+            @click="goToProfile">
+            <span>Profil</span>
+          </v-btn>
       </div>
 
       <!-- Bouton de connexion -->
@@ -67,15 +61,12 @@ export default {
       },
       userIsAuthenticated() {
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-      }
+      },
     },
     methods: {
       //Renvoie vers l'accueil
       goToHome(){
         this.$router.push("/");
-      },
-      goToSearch(){
-        this.$router.push("/search");
       },
       goToQuestionCreation(){
         this.$router.push("/createquestion");
