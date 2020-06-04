@@ -19,25 +19,21 @@
       <v-spacer></v-spacer>
 
       <!-- MENU -->
+      
+      <v-spacer></v-spacer>
+      
       <div>
-        <!--Bouton de recherche -->
-        <v-btn
-          text
-          @click="goToSearch">
-          <span >Rechercher</span>
-        </v-btn>
-
         <!-- Bouton de création de quizz -->
         <v-btn
           text
-          @click="goToQuizzCreation">
-          <span >Créer un quizz</span>
+          @click="goToQuestionCreation">
+          <span >Soumettre une question</span>
         </v-btn>
+        <v-snackbar
+        color="#6344DD"
+        v-model="snackbar"> Veuillez vous connectez-vous pour soumettre une question </v-snackbar>
       </div>
-
-      
-      <!-- MENU -->
-      <div>
+      <div v-if="userIsAuthenticated == true">
         <!--Bouton de profil -->
         <v-btn
           text
@@ -45,10 +41,11 @@
           <span>Profil</span>
         </v-btn>
       </div>
-
       <!-- Bouton de connexion -->
-      <v-spacer></v-spacer>
+      <div v-if="userIsAuthenticated == false">
         <SignIn />
+      </div>
+      
     </v-app-bar>
 
 </template>
@@ -60,12 +57,12 @@ export default {
     components : { 
       SignIn
     },
+    data() {
+      return {
+        snackbar:false,
+      }
+    },
     computed: {
-      menuItems() {
-        if(this.userIsAuthenticated()) {
-          return true
-        } else { return false }
-      },
       userIsAuthenticated() {
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
@@ -75,14 +72,19 @@ export default {
       goToHome(){
         this.$router.push("/");
       },
-      goToSearch(){
-        this.$router.push("/search");
-      },
-      goToQuizzCreation(){
-        this.$router.push("/createquizz");
+      goToQuestionCreation(){
+        if(this.isUserAuthenticated()) {
+          this.$router.push("/createquestion");
+        }
+        else {
+          this.snackbar = true
+        }
       },
       goToProfile() {
         this.$router.push("/profile")
+      },
+      isUserAuthenticated() {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     }
 }

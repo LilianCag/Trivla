@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import SearchView from '../views/SearchView.vue'
 import SignIn from '../components/users/SignIn.vue'
 import SignUp from '../components/users/SignUp.vue'
 import QuestionCreation from '../views/QuestionCreation.vue'
@@ -13,14 +12,7 @@ Vue.use(VueRouter);
 
 const routes = [
 
-    {
-        path: '/profile',
-        name: 'profile',
-        component: UserProfile,
-        meta: {
-            title: "Profile - Trivla"
-        }
-    },
+    
     {
         path: '/',
         name: 'home',
@@ -30,11 +22,11 @@ const routes = [
         }
     },
     {
-        path: '/search',
-        name: 'search',
-        component: SearchView,
+        path: '/profile',
+        name: 'profile',
+        component: UserProfile,
         meta: {
-            title: "Rechercher - Trivla"
+            title: "Profil - Trivla"
         }
     },
     {
@@ -54,11 +46,11 @@ const routes = [
         }
     },
     {
-        path: '/createquizz',
-        name: 'createaquizz',
+        path: '/createquestion',
+        name: 'createaquestion',
         component: QuestionCreation,
         meta: {
-            title: "Créer un quizz - Trivla"
+            title: "Créer une question - Trivla"
         },
     },
     {
