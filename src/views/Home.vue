@@ -3,7 +3,7 @@
     <v-container>
       <v-layout style="margin-top:50px">
         <v-row>
-          <v-col v-for="categorie in tab_questionnaires" :key="categorie" cols="12" md="3">
+          <v-col v-for="(categorie, index) in tab_questionnaires" :key="index" cols="12" md="3">
             <v-item>
               <v-hover v-slot:default="{ hover }">
                 <v-card

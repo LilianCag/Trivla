@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as firebase from 'firebase'
+import 'firebase/database'
+
 
 Vue.use(Vuex)
 
@@ -19,9 +21,32 @@ export default new Vuex.Store({
       .then(
         user => {
           const newUser = {
-            id : user.uid
+            id : user.user.uid,
+            email : payload.email,
+            pseudo : payload.pseudo
           }
-          commit('setUser', newUser)
+          commit('setUser', newUser),
+          firebase.database().ref('/users/' + user.user.uid).set(newUser)
+        }
+      )
+      .catch(
+        error => {
+          console.log(error)
+        }
+      )
+    },
+    signUserIn ({commit}, payload) {
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+      .then(
+        user => {
+          const newUser = {
+            id : user.user.uid,
+            email: payload.email,
+            pseudo : firebase.database().ref('/users').child(user.user.uid).pseudo
+          }
+          commit('setUser', newUser),
+          console.log(user),
+          console.log(firebase.database().ref('/users').child(user.user.uid).val().pseudo)
         }
       )
       .catch(

@@ -18,19 +18,19 @@
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Pseudo </span>
               <br/>
-              <span class="infos">Pseudo de l'utilisateur </span>
+              <span class="infos">{{login}} </span>
             </v-flex>
 
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Mot De Passe </span>
               <br/>
-              <span class="infos"> Mot de passe de l'utilisateur </span>
+              <span class="infos"> ********** </span>
             </v-flex>
 
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Adresse Email </span>
               <br/>
-              <span class="infos"> Adresse Email de l'utilisateur </span>
+              <span class="infos"> {{email}} </span>
             </v-flex>
 
             <v-flex class="mb-3" xs12 md12 lg12>
@@ -53,7 +53,23 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    login: "",
+    password: "",
+    email: ""
+  }),
+  mounted: function() {
+    this.getPseudo();
+  },
+  methods : {
+    getPseudo() {
+      this.login = this.$store.state.user.pseudo;
+      this.email = this.$store.state.user.email;
+    },
+  }
+
+}
 </script>
 
 

@@ -14,7 +14,7 @@
 
       <!-- Champs de l'id et du mot de passe -->
       <v-card-text>
-        <v-form @submit.prevent="onSignUp">
+        <v-form @submit.prevent="onSignUp()">
           <v-text-field
             label="Nom de joueur*"
             name="login"
@@ -103,10 +103,11 @@ export default {
   methods: {
     //Appelle la fonction d'inscription dans le store
     onSignUp() {
-      this.$store.dispatch('signUserUp', {email: this.email, password : this.password})
+      this.$store.dispatch('signUserUp', {pseudo: this.login, email: this.email, password : this.password})
     }
   }
-};
+}
+
 </script>
 
 <style scoped>
