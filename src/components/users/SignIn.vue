@@ -3,7 +3,7 @@
 
             <!-- Bouton d'affichage de la popup de connexion -->
             <template v-slot:activator="{on}">
-  <v-btn v-on="on" color="#4E2CD8" depressed> Connexion </v-btn>
+              <v-btn v-on="on" color="#4E2CD8" depressed> Connexion </v-btn>
             </template>
 
             <!-- Toolbar de la popup de connexion -->
@@ -64,9 +64,9 @@ import SignUp from './SignUp.vue'
     }
 </script>
 
-  <style scoped>
-    .SignUp{
-      margin:0px;
-      padding:0px;
-    }
-  </style>
+<style scoped>
+  .SignUp{
+    margin:0px;
+    padding:0px;
+  }
+</style>

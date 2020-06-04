@@ -1,5 +1,5 @@
 <template>
-<v-container class="my-5 notconnected">
+<v-container class="my-5">
     <h1>Profil de DAVID</h1>
 
       <v-card flat class="pa-5" color="#E1DBF9">
@@ -64,11 +64,6 @@ export default {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     },
-    notconnected() {
-      if(this.userIsAuthenticated() == false){
-        this.$router.push("/notconnected");
-      }
-    }
 };
 </script>
 
