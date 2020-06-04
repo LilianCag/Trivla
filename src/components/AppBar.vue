@@ -33,6 +33,7 @@
           @click="goToQuizzCreation">
           <span >Soumettre une question</span>
         </v-btn>
+        <v-snackbar v-model="snackbar">Connectez-vous pour soumettre une question <SignIn/></v-snackbar>
       </div>
       <div v-if="userIsAuthenticated">
         <!--Bouton de profil -->
@@ -45,6 +46,7 @@
       <div v-if="!userIsAuthenticated">
         <SignIn />
       </div>
+      
     </v-app-bar>
 
 </template>
@@ -56,9 +58,9 @@ export default {
     components : { 
       SignIn
     },
-    computed: {
-      userIsAuthenticated() {
-        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    data() {
+      return {
+        snackbar:false
       }
     },
     methods: {
@@ -67,10 +69,18 @@ export default {
         this.$router.push("/");
       },
       goToQuizzCreation(){
-        this.$router.push("/createquizz");
+        if(this.userIsAuthenticated()) {
+          this.$router.push("/createquizz");
+        }
+        else {
+          this.snackbar = true
+        }
       },
       goToProfile() {
         this.$router.push("/profile")
+      },
+      userIsAuthenticated() {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     }
 }
