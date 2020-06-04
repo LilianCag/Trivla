@@ -18,25 +18,23 @@
       <v-spacer></v-spacer>
 
       <!-- MENU -->
-      <div>
-        <!--Bouton de recherche -->
-        <v-btn
-          text
-          @click="goToSearch">
-          <span >Rechercher</span>
-        </v-btn>
+      
 
+      
+      <!-- Bouton de connexion -->
+      <v-spacer></v-spacer>
+
+      <!-- MENU -->
+      
+      <div>
         <!-- Bouton de création de quizz -->
         <v-btn
           text
           @click="goToQuizzCreation">
-          <span >Créer un quizz</span>
+          <span >Soumettre une question</span>
         </v-btn>
       </div>
-
-      
-      <!-- MENU -->
-      <div>
+      <div v-if="userIsAuthenticated">
         <!--Bouton de profil -->
         <v-btn
           text
@@ -44,10 +42,9 @@
           <span>Profil</span>
         </v-btn>
       </div>
-
-      <!-- Bouton de connexion -->
-      <v-spacer></v-spacer>
+      <div v-if="!userIsAuthenticated">
         <SignIn />
+      </div>
     </v-app-bar>
 
 </template>
@@ -60,11 +57,6 @@ export default {
       SignIn
     },
     computed: {
-      menuItems() {
-        if(this.userIsAuthenticated()) {
-          return true
-        } else { return false }
-      },
       userIsAuthenticated() {
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
@@ -73,9 +65,6 @@ export default {
       //Renvoie vers l'accueil
       goToHome(){
         this.$router.push("/");
-      },
-      goToSearch(){
-        this.$router.push("/search");
       },
       goToQuizzCreation(){
         this.$router.push("/createquizz");
