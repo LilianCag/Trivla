@@ -108,8 +108,8 @@
       </v-flex>
       
     </v-layout>
-        <v-layout  style="margin-bottom:25px">
-            <v-flex xs6 md6 >
+        <v-layout column align-center style="margin-bottom:25px">
+            <v-flex xs12 md12 >
                 <v-btn class="white--text" color="#6B4EE0" > Valider </v-btn>
             </v-flex>
         </v-layout>
@@ -140,5 +140,3 @@ export default {
     }
 }
 </script>
-
-

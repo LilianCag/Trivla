@@ -68,10 +68,3 @@ import SignUp from './SignUp.vue'
     }
   }
 </script>
-
-<style scoped>
-  .SignUp{
-    margin:0px;
-    padding:0px;
-  }
-</style>
