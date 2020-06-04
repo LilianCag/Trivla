@@ -18,16 +18,21 @@
       <v-spacer></v-spacer>
 
       <!-- MENU -->
+      
+      <v-spacer></v-spacer>
+      
+
       <div>
 
         <!-- Bouton de création de question -->
         <v-btn
           text
           @click="goToQuestionCreation">
-          <span >Créer une question</span>
-
+          <span >Soumettre une question</span>
         </v-btn>
-        <v-snackbar v-model="snackbar">Connectez-vous pour soumettre une question <SignIn/></v-snackbar>
+        <v-snackbar
+        color="#6344DD"
+        v-model="snackbar"> Veuillez vous connectez-vous pour soumettre une question </v-snackbar>
       </div>
       <div v-if="userIsAuthenticated == true">
         <!--Bouton de profil -->
@@ -71,6 +76,13 @@ export default {
       goToQuestionCreation(){
         this.$router.push("/createquestion");
 
+
+        if(this.isUserAuthenticated()) {
+          this.$router.push("/createquestion");
+        }
+        else {
+          this.snackbar = true
+        }
       },
       goToProfile() {
         this.$router.push("/profile")

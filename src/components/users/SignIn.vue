@@ -36,9 +36,7 @@
                 <!-- Boutons de création d'un compte et de connexion -->
                 <v-card-actions>
                   <SignUp style="margin-left:0px; padding:0;">
-                    
-
-                  </SignUp>
+      
 
                   <v-spacer></v-spacer>
                   <v-btn class="white--text" color="#6B4EE0" > Connexion </v-btn>
