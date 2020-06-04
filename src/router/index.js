@@ -54,8 +54,8 @@ const routes = [
         }
     },
     {
-        path: '/createquizz',
-        name: 'createaquizz',
+        path: '/createquestion',
+        name: 'createaquestion',
         component: QuestionCreation,
         meta: {
             title: "Créer un quizz - Trivla"

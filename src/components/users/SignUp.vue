@@ -32,6 +32,7 @@
             prepend-icon="mdi-mail"
             id="email"
             v-model="email"
+            color="#6B4EE0"
             type="email"
             required
           ></v-text-field>
