@@ -13,20 +13,21 @@ Vue.use(VueRouter);
 
 const routes = [
 
-    {
-        path: '/profile',
-        name: 'profile',
-        component: UserProfile,
-        meta: {
-            title: "Profile - Trivla"
-        }
-    },
+    
     {
         path: '/',
         name: 'home',
         component: Home,
         meta: {
             title: "Bienvenue sur Trivla - Trivla"
+        }
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: UserProfile,
+        meta: {
+            title: "Profil - Trivla"
         }
     },
     {
