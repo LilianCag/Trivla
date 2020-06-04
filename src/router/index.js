@@ -11,9 +11,7 @@ import UserProfile from '../components/users/UserProfile.vue'
 Vue.use(VueRouter);
 
 const routes = [
-
-    
-    {
+        {
         path: '/',
         name: 'home',
         component: Home,
@@ -22,7 +20,6 @@ const routes = [
         }
     },
     {
-        {
         path: '/profile',
         name: 'profile',
         component: UserProfile,
