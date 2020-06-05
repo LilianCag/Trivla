@@ -1,6 +1,6 @@
 <template>
 <v-container class="my-5">
-    <h1>Profil de DAVID</h1>
+    <h1>Profil de {{login}}</h1>
 
       <v-card flat class="pa-5" color="#E1DBF9">
         <v-layout row>

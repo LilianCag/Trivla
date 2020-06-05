@@ -81,11 +81,13 @@ export default {
   methods: {
     //Appelle la fonction d'inscription dans le store
     onSignIn() {
+      if(this.login !== "" && this.password !== "") {    
       console.log(this.login),
       this.$store.dispatch("signUserIn", {
         email: this.login,
         password: this.password
       });
+    }
     }
   }
 };

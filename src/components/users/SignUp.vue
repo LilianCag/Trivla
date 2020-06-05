@@ -9,11 +9,14 @@
     <v-card>
       <v-toolbar color="#6B4EE0" dark flat>
         <v-toolbar-title>Créer un compte</v-toolbar-title>
+        <v-snackbar
+        color="#6344DD"
+        v-model="snackbar"> Veuillez mettre un mot de passe d'au moins 6 caractères </v-snackbar>
         <v-spacer></v-spacer>
       </v-toolbar>
 
       <!-- Champs de l'id et du mot de passe -->
-      <v-card-text>
+      <v-card-text>  
         <v-form @submit.prevent="onSignUp()">
           <v-text-field
             label="Nom de joueur*"
@@ -73,6 +76,7 @@
 <script>
 export default {
   data: () => ({
+    snackbar:false,
     dialog: false,
     login: "",
     email: "",
@@ -90,6 +94,9 @@ export default {
     //Retourne l'utilisateur
     user() {
       return this.$store.getters.user
+    },
+    error() {
+      return this.$store.getters.error
     }
   },
   watch: {
@@ -103,8 +110,16 @@ export default {
   methods: {
     //Appelle la fonction d'inscription dans le store
     onSignUp() {
-      this.$store.dispatch('signUserUp', {pseudo: this.login, email: this.email, password : this.password})
+      if(this.login !== "" && this.password !== "" && this.email !== "" && this.password.length < 6 )  {
+      this.$store.dispatch('signUserUp', {
+        pseudo: this.login, 
+        email: this.email, 
+        password : this.password})
     }
+    else  {
+      this.snackbar = true
+    }
+    },
   }
 }
 
