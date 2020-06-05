@@ -31,7 +31,7 @@
         </v-btn>
         <v-snackbar 
         color="#6344DD"
-        v-model="snackbar">Connectez-vous pour soumettre une question <SignIn/></v-snackbar>
+        v-model="snackbar">Connectez-vous pour soumettre une question.</v-snackbar>
       </div>
       <div v-if="userIsAuthenticated == true">
         <!--Bouton de profil -->

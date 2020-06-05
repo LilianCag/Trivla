@@ -32,7 +32,7 @@
             <v-spacer></v-spacer>
             <v-col>
                 <v-overflow-btn 
-                    :items="reponses"
+                    :items="answers"
                     prepend-icon="mdi-check"
                     label="Veuillez sélectionner la bonne réponse"
                 ></v-overflow-btn>
@@ -123,8 +123,8 @@ export default {
         categories: [
             'Histoire','Géographie','Langues','Cinéma','Art','Littérature','Jeux vidéo','Sport','Sciences','Musique','Enfants','Divers'
         ],
-        reponses: [
-            "Réponse n°1","Réponse n°2","Réponse n°3","Réponse n°4"
+        answers: [
+            "Réponse 1","Réponse 2","Réponse 3","Réponse 4"
             //todo: liste dynamique pour afficher les réponses des emplacement answer1, answer2, answer3 et answer4
         ]
     }

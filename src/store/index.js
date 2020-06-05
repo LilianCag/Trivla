@@ -12,15 +12,17 @@ export default new Vuex.Store({
     loadedQuestions: [
       {
         id: 'aefroiurfeogi',
+        author: 'David',
         title: 'Dans quel jeu Mario fait sa première apparition ?',
         answers: ['Mario Bros.', 'Donkey Kong', 'Space Invaders', 'Doki Doki Panic'],
-        correctAnswer: 1
+        correctAnswer: 'Donkey Kong'
       },
       {
         id: 'oigusorigr',
+        author: 'Younès',
         title: 'Quel est le nom de la princesse que Mario doit sauver ?',
         answers: ['Zelda', 'Samus', 'Harmonie', 'Peach'],
-        correctAnswer: 3
+        correctAnswer: 'Peach'
       }
     ],
     loading: false,

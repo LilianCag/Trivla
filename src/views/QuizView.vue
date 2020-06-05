@@ -4,14 +4,22 @@
       <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
         <v-card v-if="isOn">
           <v-progress-circular :size="75" rotate="-90" v-model="getProgressScore" color="purple">
-            <label style="text-align:center">Score<br> {{score}} / {{questionCount}}</label>
+            <label style="text-align:center">
+              Score
+              <br />
+              {{score}} / {{questionCount}}
+            </label>
           </v-progress-circular>
-          <v-progress-circular :size="75" :value="(timeLeft/timeLimit)*100" :rotate="-90" :color="timerColor">
-            {{formattedTimeLeft}}
-          </v-progress-circular>
+          <v-progress-circular
+            :size="75"
+            :value="(timeLeft/timeLimit)*100"
+            :rotate="-90"
+            :color="timerColor"
+          >{{formattedTimeLeft}}</v-progress-circular>
           <v-layout align-center pa-3 style="margin-bottom:50px">
             <v-flex xs12 md12>
               <v-card v-model="currentQuestion">
+                <label>Soumise par {{currentQuestion.author}}</label>
                 <p style="font-size:48px;color:#4E2CD8;font-weight:bold;">{{currentQuestion.title}}</p>
               </v-card>
             </v-flex>
@@ -88,10 +96,9 @@ export default {
       }
       if (this.timeLeft <= 0) {
         this.pauseTimer();
-        if(!this.isAnswered){
+        if (!this.isAnswered) {
           this.pickAnswer("");
         }
-        
       }
     }
   },
@@ -120,28 +127,25 @@ export default {
       this.setQuestions();
       this.setCurrentQuestion();
       this.questionNumber = this.questions.length;
-      this.runTimer()
+      this.runTimer();
     },
     //Gère quand l'utilisateur clique sur une réponse
     pickAnswer(answer) {
-      if (
-        this.currentQuestion.correctAnswer ===
-        this.currentQuestion.answers.indexOf(answer)
-      ) {
+      if (this.currentQuestion.correctAnswer === answer) {
         this.score++;
         document.getElementById(answer).style.backgroundColor = "green";
       } else {
-        if(this.currentQuestion.answers.indexOf(answer) != -1) {
+        if (this.currentQuestion.answers.indexOf(answer) != -1) {
           document.getElementById(answer).style.backgroundColor = "red";
         }
-        
+
         document.getElementById(
-          this.currentQuestion.answers[this.currentQuestion.correctAnswer]
+          this.currentQuestion.correctAnswer
         ).style.backgroundColor = "green";
       }
       this.questionCount++;
       this.isAnswered = true;
-      this.timePassed = this.timeLimit
+      this.timePassed = this.timeLimit;
     },
     nextQuestion() {
       this.isAnswered = false;
@@ -153,7 +157,7 @@ export default {
         }
         this.setCurrentQuestion();
       }
-      this.runTimer()
+      this.runTimer();
     },
     setQuestions() {
       this.isOn = true;
@@ -162,13 +166,13 @@ export default {
     setCurrentQuestion() {
       this.currentQuestion = this.questions[this.questionCount];
     },
-    runTimer(){
-      this.timeLimit = 10
-      this.timePassed = 0
-      this.timerColor = "green"
-      this.timerInterval = setInterval(() => (this.timePassed += 1),1000);
+    runTimer() {
+      this.timeLimit = 10;
+      this.timePassed = 0;
+      this.timerColor = "green";
+      this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
     },
-    pauseTimer(){
+    pauseTimer() {
       clearInterval(this.timerInterval);
     }
   }
