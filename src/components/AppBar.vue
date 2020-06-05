@@ -7,6 +7,7 @@
       <!-- LOGO TRIVLA -->
       <div class="d-flex justify-center">
         <v-img
+          style="cursor: pointer"
           alt="Trivla Logo"
           class="shrink mr-2"
           contain
@@ -30,7 +31,7 @@
         </v-btn>
         <v-snackbar 
         color="#6344DD"
-        v-model="snackbar">Connectez-vous pour soumettre une question <SignIn/></v-snackbar>
+        v-model="snackbar">Connectez-vous pour soumettre une question.</v-snackbar>
       </div>
       <div v-if="userIsAuthenticated == true">
         <!--Bouton de profil -->
