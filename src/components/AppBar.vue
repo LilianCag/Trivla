@@ -19,12 +19,7 @@
 
       <!-- MENU -->
       
-
-      
-      
       <v-spacer></v-spacer>
-
-      <!-- MENU -->
       
       <div>
         <!-- Bouton de création de quizz -->
@@ -33,7 +28,7 @@
           @click="goToQuizzCreation">
           <span >Soumettre une question</span>
         </v-btn>
-        <v-snackbar v-model="snackbar">Connectez-vous pour soumettre une question <SignIn/></v-snackbar>
+        <v-snackbar v-model="snackbar">Connectez-vous pour soumettre une question.</v-snackbar>
       </div>
       <div v-if="userIsAuthenticated == true">
         <!--Bouton de profil -->

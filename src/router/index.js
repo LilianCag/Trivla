@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import SearchView from '../views/SearchView.vue'
 import SignIn from '../components/users/SignIn.vue'
 import SignUp from '../components/users/SignUp.vue'
 import QuestionCreation from '../views/QuestionCreation.vue'
@@ -31,14 +30,6 @@ const routes = [
         }
     },
     {
-        path: '/search',
-        name: 'search',
-        component: SearchView,
-        meta: {
-            title: "Rechercher - Trivla"
-        }
-    },
-    {
         path: '/connexion',
         name: 'connexion',
         component: SignIn,
@@ -59,7 +50,7 @@ const routes = [
         name: 'createaquizz',
         component: QuestionCreation,
         meta: {
-            title: "Créer un quizz - Trivla"
+            title: "Soumettre une question - Trivla"
         },
     },
     {
