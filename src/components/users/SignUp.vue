@@ -10,8 +10,8 @@
       <v-toolbar color="#6B4EE0" dark flat>
         <v-toolbar-title>Créer un compte</v-toolbar-title>
         <v-snackbar
-        color="#6344DD"
-        v-model="snackbar"> Veuillez mettre un mot de passe d'au moins 6 caractères </v-snackbar>
+        color="#B40404"
+        v-model="snackbar" style="font-size: 16px"> Veuillez mettre un mot de passe d'au moins 6 caractères </v-snackbar>
         <v-spacer></v-spacer>
       </v-toolbar>
 
@@ -32,7 +32,8 @@
           <v-text-field
             label="Adresse mail*"
             name="email"
-            prepend-icon="mdi-mail"
+            prepend-icon="mdi-email"
+            color="#6B4EE0"
             id="email"
             v-model="email"
             type="email"
@@ -95,9 +96,6 @@ export default {
     user() {
       return this.$store.getters.user
     },
-    error() {
-      return this.$store.getters.error
-    }
   },
   watch: {
     //Ferme la boîte de dialogue après inscription
@@ -110,7 +108,7 @@ export default {
   methods: {
     //Appelle la fonction d'inscription dans le store
     onSignUp() {
-      if(this.login !== "" && this.password !== "" && this.email !== "" && this.password.length < 6 )  {
+      if(this.login !== "" && this.password !== "" && this.email !== "" && this.password.length > 5 )  {
       this.$store.dispatch('signUserUp', {
         pseudo: this.login, 
         email: this.email, 
@@ -124,10 +122,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-.SignUp {
-  margin: 0px;
-  padding: 0px;
-}
-</style>
