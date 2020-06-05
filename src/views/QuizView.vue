@@ -19,7 +19,8 @@
           <v-layout align-center pa-3 style="margin-bottom:50px">
             <v-flex xs12 md12>
               <v-card v-model="currentQuestion">
-                <label>Soumise par {{currentQuestion.author}}</label>
+                <v-chip>{{currentQuestion.category}}</v-chip>
+                <v-chip>Soumise par {{currentQuestion.author}}</v-chip>
                 <p style="font-size:48px;color:#4E2CD8;font-weight:bold;">{{currentQuestion.title}}</p>
               </v-card>
             </v-flex>
@@ -143,9 +144,9 @@ export default {
           this.currentQuestion.correctAnswer
         ).style.backgroundColor = "green";
       }
+      this.isAnswered = true
       this.questionCount++;
-      this.isAnswered = true;
-      this.timePassed = this.timeLimit;
+      this.pauseTimer();
     },
     nextQuestion() {
       this.isAnswered = false;

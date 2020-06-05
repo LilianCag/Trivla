@@ -15,14 +15,16 @@ export default new Vuex.Store({
         author: 'David',
         title: 'Dans quel jeu Mario fait sa première apparition ?',
         answers: ['Mario Bros.', 'Donkey Kong', 'Space Invaders', 'Doki Doki Panic'],
-        correctAnswer: 'Donkey Kong'
+        correctAnswer: 'Donkey Kong',
+        category: "Jeu vidéo"
       },
       {
         id: 'oigusorigr',
         author: 'Younès',
         title: 'Quel est le nom de la princesse que Mario doit sauver ?',
         answers: ['Zelda', 'Samus', 'Harmonie', 'Peach'],
-        correctAnswer: 'Peach'
+        correctAnswer: 'Peach',
+        category: "Jeu vidéo"
       }
     ],
     loading: false,
@@ -40,6 +42,9 @@ export default new Vuex.Store({
     },
     clearError(state) {
       state.error = null
+    },
+    createQuestion (state, payload) {
+      state.loadedQuestions.push(payload)
     }
   },
   actions: {
@@ -94,6 +99,18 @@ export default new Vuex.Store({
             console.log(error)
           }
         )
+    },
+    createQuestion ({commit}, payload) {
+      const question = {
+        author: payload.author,
+        title: payload.title,
+        answers: payload.answers,
+        correctAnswer : payload.correctAnswer,
+        category : payload.category,
+        date : payload.date
+      }
+      //Ici qu'on stocke dans firebase
+      commit('createQuestion', question)
     }
   },
   modules: {
