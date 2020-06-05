@@ -3,8 +3,7 @@ import App from './App.vue'
 import * as firebase from 'firebase'
 import store from './store'
 import router from './router'
-import vuetify from './plugins/vuetify'
-
+import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 
@@ -15,7 +14,7 @@ new Vue({
   render: h => h(App),
   created() {
     firebase.initializeApp({
-      apiKey: 'AIzaSyDnTEZNJSwUZO_h5MHDp0ta4jIfHrRMl5I',
+      apiKey: 'xxxxxxxxxxxxx',
       authDomain: 'trivla.firebaseapp.com',
       databaseURL: 'https://trivla.firebaseio.com',
       projectId: 'trivla',
