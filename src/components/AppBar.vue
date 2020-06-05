@@ -7,6 +7,7 @@
       <!-- LOGO TRIVLA -->
       <div class="d-flex justify-center">
         <v-img
+          style="cursor: pointer"
           alt="Trivla Logo"
           class="shrink mr-2"
           contain
