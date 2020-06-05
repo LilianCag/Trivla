@@ -80,7 +80,7 @@ export default {
         this.$router.push("/");
       },
       goToQuestionCreation(){
-        if(this.isUserAuthenticated) {
+        if(this.userIsAuthenticated) {
           this.$router.push("/createquestion");
         }
         else {
@@ -89,9 +89,6 @@ export default {
       },
       goToProfile() {
         this.$router.push("/profile")
-      },
-      isUserAuthenticated() {
-        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       },
       logOut() {
       if(this.userIsAuthenticated) {   

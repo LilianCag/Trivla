@@ -9,9 +9,7 @@
     <v-card>
       <v-toolbar color="#6B4EE0" dark flat>
         <v-toolbar-title>Créer un compte</v-toolbar-title>
-        <v-snackbar
-        color="#B40404"
-        v-model="snackbar" style="font-size: 16px"> Veuillez mettre un mot de passe d'au moins 6 caractères </v-snackbar>
+       
         <v-spacer></v-spacer>
       </v-toolbar>
 
@@ -27,6 +25,7 @@
             color="#6B4EE0"
             type="text"
             required
+            :rules="loginRules"
           ></v-text-field>
 
           <v-text-field
@@ -36,9 +35,9 @@
             color="#6B4EE0"
             id="email"
             v-model="email"
-            color="#6B4EE0"
             type="email"
             required
+            :rules="emailRules"
           ></v-text-field>
 
           <v-text-field
@@ -50,6 +49,7 @@
             v-model="password"
             type="password"
             required
+            :rules="passwordRules"
           ></v-text-field>
 
           <v-text-field
@@ -60,6 +60,7 @@
             color="#6B4EE0"
             v-model="confirmPassword"
             type="password"
+            required
             :rules="[comparePasswords]"
           ></v-text-field>
 
@@ -83,19 +84,30 @@ export default {
     login: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    loginRules: [
+      v => !!v || 'Ce champ est obligatoire'
+    ],
+    emailRules: [
+        v => !!v || 'Ce champ est obligatoire',
+        v => /.+@.+/.test(v) || 'Votre e-mail n\'est pas valide'
+      ],
+      passwordRules: [
+        (v) => !!v || 'Ce champ est obligatoire',
+        (v) => v.length > 5 || 'Votre mot de passe doit contenir 6 caractères minimum'
+      ]
   }),
   props: {
     source: String
   },
   computed: {
-    //Compare les mots de passe
-    comparePasswords() {
-      return this.password !== this.confirmPassword ? 'Les mots de passe ne correspondent pas' : true;
-    },
     //Retourne l'utilisateur
     user() {
       return this.$store.getters.user
+    },
+    //Compare les mots de passe
+    comparePasswords() {
+      return this.password !== this.confirmPassword ? 'Les mots de passe ne correspondent pas' : true;
     },
   },
   watch: {
