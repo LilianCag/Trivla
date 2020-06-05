@@ -20,5 +20,10 @@ new Vue({
       projectId: 'trivla',
       storageBucket: 'trivla.appspot.com'
     })
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+      this.$store.dispatch('autoSignIn', user)
+      }
+    })
   }
 }).$mount('#app')

@@ -103,6 +103,9 @@ export default new Vuex.Store({
       }
       //Ici qu'on stocke dans firebase
       commit('createQuestion', question)
+    },
+    autoSignIn ({ commit }, payload) {
+      commit('setUser', {id: payload.id, pseudo: payload.pseudo, email: payload.email})
     }
   },
   modules: {
