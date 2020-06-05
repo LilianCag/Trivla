@@ -1,13 +1,14 @@
 <template>
   <v-container>
-    <v-layout fluid mt-5>
-      <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
-        <v-card flat>
-            <v-layout align-center pa-3 style="margin-bottom:10px">
-                <v-flex xs12 md12>
-                    <v-form
-                    @submit="submit"
-                    onSubmit="return false;">
+    <v-form
+    @submit="submit"
+    onSubmit="return false;">
+        <v-layout fluid mt-5>
+        <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
+            <v-card flat>
+                <v-layout align-center pa-3 style="margin-bottom:10px">
+                    <v-flex xs12 md12>
+
 
                         <v-text-field
                         label="Veuillez entrez votre question"
@@ -15,7 +16,7 @@
                         prepend-icon="mdi-help"
                         color="#6B4EE0"
                         type="text"></v-text-field>
-                    </v-form>
+                    
                 </v-flex>
             </v-layout>
            
@@ -40,9 +41,7 @@
 
             <v-layout align-center pa-3 style="margin-bottom:25px">
                 <v-flex xs6 md6>
-                    <v-form
-                    @submit="submit"
-                    onSubmit="return false;">
+                  
                         <v-text-field
                         v-model="answer1"
                         label="Veuillez entrer une première proposition"
@@ -51,15 +50,13 @@
                         prepend-icon="mdi-numeric-1-circle-outline"
                         color="#6B4EE0"
                         type="text"></v-text-field>
-                    </v-form>
+                    
                 </v-flex>
             </v-layout>
 
             <v-layout align-center pa-3 style="margin-bottom:25px">
                 <v-flex xs6 md6>
-                    <v-form
-                    @submit="submit"
-                    onSubmit="return false;">
+                    
                         <v-text-field
                         v-model="answer2"
                         label="Veuillez entrer une seconde proposition"
@@ -67,15 +64,13 @@
                         prepend-icon="mdi-numeric-2-circle-outline"
                         color="#6B4EE0"
                         type="text"></v-text-field>
-                    </v-form>
+                   
                 </v-flex>
             </v-layout>
 
             <v-layout align-center pa-3 style="margin-bottom:25px">
                 <v-flex xs6 md6>
-                    <v-form
-                    @submit="submit"
-                    onSubmit="return false;">
+                   
                         <v-text-field
                         v-model="answer3"
                         label="Veuillez entrer une troisième proposition"
@@ -83,15 +78,13 @@
                         prepend-icon="mdi-numeric-3-circle-outline"
                         color="#6B4EE0"
                         type="text"></v-text-field>
-                    </v-form>
+                  
                 </v-flex>
             </v-layout>
 
             <v-layout align-center pa-3 style="margin-bottom:25px">
                 <v-flex xs6 md6>
-                    <v-form
-                    @submit="submit"
-                    onSubmit="return false;">
+                   
                         <v-text-field
                         v-model="answer4"
                         label="Veuillez entrer une quatrième proposition"
@@ -99,7 +92,7 @@
                         prepend-icon="mdi-numeric-4-circle-outline"
                         color="#6B4EE0"
                         type="text"></v-text-field>
-                    </v-form>
+                   
                 </v-flex>
             </v-layout>
 
@@ -108,11 +101,12 @@
       </v-flex>
       
     </v-layout>
-        <v-layout  style="margin-bottom:25px">
-            <v-flex xs6 md6 >
+        <v-layout column align-center style="margin-bottom:25px">
+            <v-flex xs12 md12 >
                 <v-btn class="white--text" color="#6B4EE0" > Valider </v-btn>
             </v-flex>
         </v-layout>
+    </v-form>
   </v-container>
   
 </template>
