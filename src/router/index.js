@@ -50,7 +50,7 @@ const routes = [
         name: 'createaquestion',
         component: QuestionCreation,
         meta: {
-            title: "Créer une question - Trivla"
+            title: "Soumettre une question - Trivla"
         },
     },
     {
