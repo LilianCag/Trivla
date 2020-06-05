@@ -82,9 +82,6 @@ export default {
       },
       goToProfile() {
         this.$router.push("/profile")
-      },
-      isUserAuthenticated() {
-        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     }
 }
