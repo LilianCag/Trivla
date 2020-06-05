@@ -55,14 +55,7 @@
 <script>
 export default {    
   computed: {
-    menuItems() {
-      if(this.userIsAuthenticated()) {
-        return true
-      } else { return false }
-    },
-    userIsAuthenticated() {
-      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-      }
+
     },
 };
 </script>
