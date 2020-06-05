@@ -17,10 +17,10 @@
 
         <v-card-text>
           <v-text-field
-            label="Identifiant"
+            label="Email"
             name="login"
             v-model="login"
-            prepend-icon="mdi-account"
+            prepend-icon="mdi-email"
             color="#6B4EE0"
             type="text"
             required

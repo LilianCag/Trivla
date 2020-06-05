@@ -26,7 +26,7 @@
         <!-- Bouton de création de quizz -->
         <v-btn
           text
-          @click="goToQuestionCreation">
+          @click="goToQuestionCreation()">
           <span >Soumettre une question</span>
         </v-btn>
         <v-snackbar 
@@ -37,9 +37,16 @@
         <!--Bouton de profil -->
         <v-btn
           text
-          @click="goToProfile">
+          @click="goToProfile()">
           <span>Profil</span>
         </v-btn>
+
+        <v-btn
+          text
+          @click="logOut()">
+          <span>Se déconnecter</span>
+        </v-btn>
+
       </div>
       <!-- Bouton de connexion -->
       <div v-if="userIsAuthenticated == false">
@@ -73,7 +80,7 @@ export default {
         this.$router.push("/");
       },
       goToQuestionCreation(){
-        if(this.isUserAuthenticated()) {
+        if(this.userIsAuthenticated) {
           this.$router.push("/createquestion");
         }
         else {
@@ -82,7 +89,12 @@ export default {
       },
       goToProfile() {
         this.$router.push("/profile")
-      }
+      },
+      logOut() {
+      if(this.userIsAuthenticated) {   
+      this.$store.dispatch("logoutUser");
+    }
+    }
     }
 }
 </script>
