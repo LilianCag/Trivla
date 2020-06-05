@@ -7,13 +7,12 @@ import QuestionCreation from '../views/QuestionCreation.vue'
 import Error404 from '../components/404.vue'
 import QuizView from '../views/QuizView.vue'
 import UserProfile from '../components/users/UserProfile.vue'
+import AuthGuard from './auth-guard.js'
 
 Vue.use(VueRouter);
 
 const routes = [
-
-    
-    {
+        {
         path: '/',
         name: 'home',
         component: Home,
@@ -25,9 +24,11 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component: UserProfile,
-        meta: {
+        meta: 
+        {
             title: "Profil - Trivla"
-        }
+        },
+        beforeEnter: AuthGuard,
     },
     {
         path: '/connexion',
@@ -50,7 +51,7 @@ const routes = [
         name: 'createaquestion',
         component: QuestionCreation,
         meta: {
-            title: "Créer une question - Trivla"
+            title: "Soumettre une question - Trivla"
         },
     },
     {

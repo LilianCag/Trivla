@@ -29,9 +29,9 @@
           @click="goToQuestionCreation()">
           <span >Soumettre une question</span>
         </v-btn>
-        <v-snackbar
+        <v-snackbar 
         color="#6344DD"
-        v-model="snackbar"> Veuillez vous connectez-vous pour soumettre une question </v-snackbar>
+        v-model="snackbar">Connectez-vous pour soumettre une question.</v-snackbar>
       </div>
       <div v-if="userIsAuthenticated == true">
         <!--Bouton de profil -->
@@ -72,7 +72,7 @@ export default {
     computed: {
       userIsAuthenticated() {
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-      }
+      },
     },
     methods: {
       //Renvoie vers l'accueil

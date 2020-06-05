@@ -6,16 +6,36 @@ import router from '../router'
 
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
   state: {
     user: null,
+    loadedQuestions: [
+      {
+        id: 'aefroiurfeogi',
+        author: 'David',
+        title: 'Dans quel jeu Mario fait sa première apparition ?',
+        answers: ['Mario Bros.', 'Donkey Kong', 'Space Invaders', 'Doki Doki Panic'],
+        correctAnswer: 'Donkey Kong',
+        category: "Jeu vidéo"
+      },
+      {
+        id: 'oigusorigr',
+        author: 'Younès',
+        title: 'Quel est le nom de la princesse que Mario doit sauver ?',
+        answers: ['Zelda', 'Samus', 'Harmonie', 'Peach'],
+        correctAnswer: 'Peach',
+        category: "Jeu vidéo"
+      }
+    ],
     loading: false,
     error: null
   },
   mutations: {
     setUser(state, payload) {
       state.user = payload
+    },
+    createQuestion (state, payload) {
+      state.loadedQuestions.push(payload)
     }
   },
   actions: {
@@ -71,6 +91,18 @@ export default new Vuex.Store({
         }
       )
       commit('setUser',null)
+    },
+    createQuestion ({commit}, payload) {
+      const question = {
+        author: payload.author,
+        title: payload.title,
+        answers: payload.answers,
+        correctAnswer : payload.correctAnswer,
+        category : payload.category,
+        date : payload.date
+      }
+      //Ici qu'on stocke dans firebase
+      commit('createQuestion', question)
     }
   },
   modules: {
@@ -78,6 +110,24 @@ export default new Vuex.Store({
   getters: {
     user(state) {
       return state.user
+    },
+    //Retourne les questions chargées
+    loadedQuestions(state) {
+      return state.loadedQuestions
+    },
+    //Retourne une question parmi les questions chargée par id
+    loadedQuestion(state){
+      return (questionId) => {
+        return state.loadedQuestions.find((question) => {
+          return question.id === questionId
+        })
+      }
+    },
+    loading(state) {
+      return state.loading
+    },
+    error(state) {
+      return state.error
     }
   }
 })
