@@ -9,7 +9,7 @@
         <v-img
           style="cursor: pointer"
           alt="Trivla Logo"
-          class="shrink mr-2"
+          class="shrink"
           contain
           src="../assets/logo-trivla.png"
           width="150"

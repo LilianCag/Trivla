@@ -80,7 +80,7 @@ export default new Vuex.Store({
           user => {
             commit('setLoading',false)
             firebase.database().ref('/users').child(user.user.uid).once("value", function (snapshot) {
-              console.log(snapshot.val().pseudo)
+              //console.log(snapshot.val().pseudo)
               const newUser = {
                 id: snapshot.val().id,
                 email: user.user.email,
@@ -89,7 +89,6 @@ export default new Vuex.Store({
               commit('setUser', newUser),
               router.push('/')
             })
-
           }
         )
         .catch(
@@ -111,7 +110,13 @@ export default new Vuex.Store({
       }
       //Ici qu'on stocke dans firebase
       commit('createQuestion', question)
-    }
+    },
+ /*
+    autoSignIn ({ commit }, payload) {
+      commit('setUser', {id: this.payload.id, pseudo: payload.pseudo, email: payload.email})
+    }*/
+
+
   },
   modules: {
   },
