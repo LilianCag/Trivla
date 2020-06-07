@@ -1,6 +1,18 @@
 <template>
   <v-container>
-    <v-layout fluid mt-5>
+    <v-layout v-if="loading">
+      <v-flex xs12 class="test-xs-center">
+        <v-progress-circular
+        indeterminate
+        class="primary--text"
+        :width="7"
+        :size="70"
+        >
+
+        </v-progress-circular>
+      </v-flex>
+    </v-layout>
+    <v-layout v-else>
       <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
         <v-card v-if="isOn">
           <v-progress-circular :size="75" rotate="-90" v-model="getProgressScore" color="purple">
@@ -75,6 +87,9 @@
 <script>
 export default {
   name: "QuizView",
+  props: {
+    category : String
+  },
   data() {
     return {
       isOn: false,
@@ -103,6 +118,12 @@ export default {
       }
     }
   },
+  mounted : function(){
+    if(this.category == null) {
+      this.category = "Général"
+    }
+    this.$store.dispatch('loadQuestions',this.category)
+  },
   computed: {
     getProgress() {
       return (this.questionCount / this.questionNumber) * 100;
@@ -120,7 +141,10 @@ export default {
         seconds = `0${seconds}`;
       }
       return `${seconds}`;
-    }
+    },
+    loading() {
+      return this.$store.getters.loading
+    },
   },
   methods: {
     //Démarre le jeu
@@ -157,6 +181,7 @@ export default {
           ).style.backgroundColor = "#8269E4";
         }
         this.setCurrentQuestion();
+        
       }
       this.runTimer();
     },

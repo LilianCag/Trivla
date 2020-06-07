@@ -158,8 +158,7 @@ export default {
               title: this.title,
               answers: answerList,
               correctAnswer: this.correctAnswer,
-              category: this.category,
-              date: new Date()
+              category: this.category
           }
           this.$store.dispatch('createQuestion', questionData)
           this.$router.push('/')
