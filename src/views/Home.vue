@@ -37,7 +37,7 @@ export default {
           title: "Histoire",
           color: "#8269E4",
           color2:"#4E2CD8",
-          url: "/quiz"
+          url: "/quiz",
         },
         {
           title: "Géographie",

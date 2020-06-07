@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as firebase from 'firebase'
 import 'firebase/database'
-import router from '../router'
+
 
 
 Vue.use(Vuex)
@@ -46,7 +46,9 @@ export default new Vuex.Store({
             const newUser = {
               id: user.user.uid,
               email: payload.email,
-              pseudo: payload.pseudo
+              pseudo: payload.pseudo,
+              score: 0,
+              nbGames: 0
             }
             commit('setUser', newUser),
               firebase.database().ref('/users/' + user.user.uid).set(newUser)
@@ -67,10 +69,11 @@ export default new Vuex.Store({
               const newUser = {
                 id: snapshot.val().id,
                 email: user.user.email,
-                pseudo: snapshot.val().pseudo
+                pseudo: snapshot.val().pseudo,
+                score: snapshot.val().score,
+                nbGames: snapshot.val().nbGames
               }
-              commit('setUser', newUser),
-              router.push('/')
+              commit('setUser', newUser)
             })
 
           }
@@ -83,7 +86,6 @@ export default new Vuex.Store({
     },
     logoutUser({ commit }) {
       firebase.auth().signOut().then(function() {
-        router.push('/') 
       })
       .catch(
         error => {
@@ -104,9 +106,11 @@ export default new Vuex.Store({
       //Ici qu'on stocke dans firebase
       commit('createQuestion', question)
     },
-    autoSignIn ({ commit }, payload) {
-      commit('setUser', {id: payload.id, pseudo: payload.pseudo, email: payload.email})
-    }
+    autoSignIn({ commit }, payload) {
+      firebase.database().ref('/users').child(payload.uid).once("value", function(snapshot) {
+              commit('setUser', { id: snapshot.val().id, email: snapshot.val().email, pseudo: snapshot.val().pseudo, score: snapshot.val().score, nbGames: snapshot.val().nbGames})
+          })
+  }
   },
   modules: {
   },

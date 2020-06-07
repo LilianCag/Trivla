@@ -66,10 +66,11 @@
 
           <!-- Boutons de création d'un compte et de connexion -->
           <v-card-actions justify>
-            <v-btn class="white--text" color="#6B4EE0" @click="dialog = false">Fermer</v-btn>
+            <v-btn class="white--text" color="#6B4EE0" @click="dialog = !dialog">Fermer</v-btn>
             <v-spacer></v-spacer>
-            <v-btn type="submit" class="white--text" @click="onSignUp" color="#6B4EE0">Créer un compte</v-btn>
+            <v-btn type="submit" class="white--text" @click="onSignUp" color="#6B4EE0" >Créer un compte</v-btn>
           </v-card-actions>
+          <span> Les données avec * sont obligatoires </span>
         </v-form>
       </v-card-text>
     </v-card>
