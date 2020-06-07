@@ -32,10 +32,17 @@
             <v-flex xs12 md12>
               <v-card v-model="currentQuestion">
                 <v-chip>{{currentQuestion.category}}</v-chip>
-                <v-chip>Soumise par {{currentQuestion.author}}</v-chip>
+                <v-chip>Soumise par {{currentQuestion.author}} le {{currentQuestion.date}}</v-chip>
+              <!-- 5050 -->
+              <v-btn><v-icon> mdi-star-half-full </v-icon></v-btn>
+              <!-- Avis du public -->
+              <v-btn><v-icon> mdi-account-question </v-icon></v-btn>
+              <!-- Freeze timer -->
+              <v-btn @click="jokerLockTimer"><v-icon> mdi-lock-clock </v-icon></v-btn>
                 <p style="font-size:48px;color:#4E2CD8;font-weight:bold;">{{currentQuestion.title}}</p>
               </v-card>
             </v-flex>
+
           </v-layout>
 
           <v-item-group mandatory>
@@ -69,6 +76,10 @@
               </v-layout>
             </v-container>
           </v-item-group>
+          
+                <!-- POUCE VERT POUCE ROUGE -->
+              <v-btn><v-icon> mdi-thumb-up-outline </v-icon></v-btn>
+              <v-btn><v-icon> mdi-thumb-down-outline </v-icon></v-btn>
           <v-btn
             @click="nextQuestion"
             v-if="questionCount<questionNumber"
@@ -200,6 +211,11 @@ export default {
     },
     pauseTimer() {
       clearInterval(this.timerInterval);
+    },
+    jokerLockTimer() {
+      this.pauseTimer()
+      this.timerColor = "cyan"
+
     }
   }
 };

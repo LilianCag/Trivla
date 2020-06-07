@@ -124,8 +124,7 @@ export default {
         "Sport",
         "Sciences",
         "Musique",
-        "Enfants",
-        "Divers"
+        "Enfants"
       ],
       answers: [
         1,
@@ -143,7 +142,7 @@ export default {
       //Retourne l'utilisateur
     user() {
       return this.$store.getters.user
-    },
+    }
   },
   methods: {
       onCreateQuestion() {
@@ -152,13 +151,20 @@ export default {
           }
           let answerList = [this.answer1, this.answer2, this.answer3, this.answer4]
           this.correctAnswer = answerList[this.answerSelected-1]
-
+          let dateTemp = new Date()
+          let stringDate = ""+ ("0" + dateTemp.getDate()).slice(-2)+"/"+("0" + (dateTemp.getMonth() + 1)).slice(-2)+"/"+ dateTemp.getFullYear()
+          console.log(stringDate)
           const questionData = {
               author: this.user.pseudo,
               title: this.title,
               answers: answerList,
               correctAnswer: this.correctAnswer,
-              category: this.category
+              category: this.category,
+              likes:0,
+              dislikes:0,
+              nbPlayed:0,
+              peopleAnswers:[0,0,0,0],
+              date: stringDate
           }
           this.$store.dispatch('createQuestion', questionData)
           this.$router.push('/')

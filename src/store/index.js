@@ -21,7 +21,7 @@ export default new Vuex.Store({
     setLoading(state, payload) {
       state.loading = payload
     },
-    createQuestion (state, payload) {
+    createQuestion(state, payload) {
       state.loadedQuestions.push(payload)
     },
     setLoadedQuestions(state, payload) {
@@ -65,7 +65,7 @@ export default new Vuex.Store({
                 pseudo: snapshot.val().pseudo
               }
               commit('setUser', newUser),
-              router.push('/')
+                router.push('/')
             })
           }
         )
@@ -77,27 +77,32 @@ export default new Vuex.Store({
     },
     //Fonction de déconnexion
     logoutUser({ commit }) {
-      firebase.auth().signOut().then(function() {
-        router.push('/') 
+      firebase.auth().signOut().then(function () {
+        router.push('/')
       })
-      .catch(
-        error => {
-          console.log(error)
-        }
-      )
-      commit('setUser',null)
+        .catch(
+          error => {
+            console.log(error)
+          }
+        )
+      commit('setUser', null)
     },
     //Créé une question et la stocke dans la bdd
-    createQuestion ({commit}, payload) {
+    createQuestion({ commit }, payload) {
       const question = {
         author: payload.author,
         title: payload.title,
         answers: payload.answers,
-        correctAnswer : payload.correctAnswer,
-        category : payload.category
+        correctAnswer: payload.correctAnswer,
+        category: payload.category,
+        likes: payload.likes,
+        dislikes: payload.dislikes,
+        nbPlayed: payload.nbPlayed,
+        peopleAnswers: payload.peopleAnswers,
+        date: payload.date
       }
       //Stockage dans firebase
-      firebase.database().ref('questions').push(question)
+      firebase.database().ref('/questions/' + question.category).push(question)
         .then((data) => {
           const key = data.key
           commit('createQuestion', {
@@ -110,40 +115,101 @@ export default new Vuex.Store({
         })
     },
     //Charge les questions
-    loadQuestions({commit}, cat) {
-      commit('setLoading',true)
-      firebase.database().ref('questions').once('value')
-        .then((data) => {
-          const questions = []
-          const obj = data.val()
+    loadQuestions({ commit }, cat) {
+      commit('setLoading', true)
+      if (cat === "Général") {
+        commit('setLoadedQuestions',[])
+        const categories = ["Histoire", "Géographie", "Langues", "Cinéma", "Art", "Littérature", "Jeux vidéo", "Sport", "Sciences", "Musique", "Enfants"]
+        let index = -1
+        for (let i = 0; i < 10; i++) {
+          index = Math.floor((Math.random() * categories.length))
+          firebase.database().ref('/questions/' + categories[index]).once('value')
+            .then((data) => {
+              const questions = []
+              const obj = data.val()
+              const ids = Object.keys(obj)
+              let indexList = []
+              let index = -1
+              let key = ""
+              index = Math.floor((Math.random() * ids.length))
+              key = ids[index]
 
-          for (let key in obj) {
-            if(obj[key].category == cat || cat == "Général"){
+
+              indexList.push(index)
               questions.push({
-              id: key,
-              author: obj[key].author,
-              title: obj[key].title,
-              answers: obj[key].answers,
-              correctAnswer: obj[key].correctAnswer,
-              category: obj[key].category
+                id: key,
+                author: obj[key].author,
+                title: obj[key].title,
+                answers: obj[key].answers,
+                correctAnswer: obj[key].correctAnswer,
+                category: obj[key].category,
+                likes: obj[key].likes,
+                dislikes: obj[key].dislikes,
+                nbPlayed: obj[key].nbPlayed,
+                people: obj[key].people,
+                date: obj[key].date
+              })
+              commit('createQuestion', questions[0])
+              commit('setLoading', false)
             })
+
+        }
+      }
+      else {
+        firebase.database().ref('/questions/' + cat).once('value')
+          .then((data) => {
+            const questions = []
+            const obj = data.val()
+            const ids = Object.keys(obj)
+            let indexList = []
+            let index = -1
+            let key = ""
+            for (let i = 0; i < 10; i++) {
+              if (i < ids.length) {
+                if (index == -1) {
+                  index = Math.floor((Math.random() * ids.length))
+                  key = ids[index]
+                }
+                else {
+                  while (indexList.includes(index)) {
+                    index = Math.floor((Math.random() * ids.length))
+                    key = ids[index]
+                  }
+                }
+
+                indexList.push(index)
+                questions.push({
+                  id: key,
+                  author: obj[key].author,
+                  title: obj[key].title,
+                  answers: obj[key].answers,
+                  correctAnswer: obj[key].correctAnswer,
+                  category: obj[key].category,
+                  likes: obj[key].likes,
+                  dislikes: obj[key].dislikes,
+                  nbPlayed: obj[key].nbPlayed,
+                  people: obj[key].people,
+                  date: obj[key].date
+                })
+              }
             }
-            
-          }
-          commit('setLoadedQuestions', questions)
-          commit('setLoading',false)
-        })
-        .catch(
-          (error) => {
-            console.log(error)
-            commit('setLoading',true)
-          }
-        )
+            commit('setLoadedQuestions', questions)
+            commit('setLoading', false)
+          })
+          .catch(
+            (error) => {
+              console.log(error)
+              commit('setLoading', true)
+            }
+          )
+
+      }
+
     },
- /*
-    autoSignIn ({ commit }, payload) {
-      commit('setUser', {id: this.payload.id, pseudo: payload.pseudo, email: payload.email})
-    }*/
+    /*
+       autoSignIn ({ commit }, payload) {
+         commit('setUser', {id: this.payload.id, pseudo: payload.pseudo, email: payload.email})
+       }*/
 
 
   },
@@ -158,7 +224,7 @@ export default new Vuex.Store({
       return state.loadedQuestions
     },
     //Retourne une question parmi les questions chargée par id
-    loadedQuestion(state){
+    loadedQuestion(state) {
       return (questionId) => {
         return state.loadedQuestions.find((question) => {
           return question.id === questionId
