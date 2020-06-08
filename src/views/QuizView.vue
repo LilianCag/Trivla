@@ -67,7 +67,7 @@
                         :disabled="isAnswered"
                       >
                         <v-layout align-center justify-center>
-                          <span style="font-size:1.5em; color: white">{{ answer }}</span>
+                          <span style="font-size:1.5em; color: white ; text-align:center">{{ answer }}</span>
                         </v-layout>
                       </v-card>
                     </v-item>

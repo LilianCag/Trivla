@@ -12,11 +12,14 @@
                   class="d-flex align-center"
                   width="500px"
                   height="200px"
-                  :color="hover ? category.color2 :category.color"
+                 
                 >
-                  <v-layout align-center justify-center>
-                    <span style="font-size:1.5em;">{{ category.title }}</span>
-                  </v-layout>
+                <v-img
+                height="200px"
+                :src="category.img"
+                >
+                <v-card-title class="infoTitle justify-center"> {{ category.title }} </v-card-title>
+                </v-img>
                 </v-card>
                 </router-link>
               </v-hover>
@@ -36,75 +39,63 @@ export default {
       tab_questionnaires: [
         {
           title: "Général",
-          color: "#C7BCF3",
-          color2:"#4E2CD8",
-          url: "general"
+          url: "general",
+          img: require("../assets/general.png")
         },
         {
           title: "Histoire",
-          color: "#8269E4",
-          color2:"#4E2CD8",
-          url: "histoire"
+          url: "histoire",
+          img: require("../assets/histoire.jpg")
         },
         {
           title: "Géographie",
-          color: "#A492EB",
-          color2:"#4E2CD8",
-          url: "geographie"
+          url: "geographie",
+          img: require("../assets/geographie.jpg")
         },
         {
           title: "Langues",
-          color: "#C7BCF3",
-          color2:"#4E2CD8",
-          url: "langues"
+          url: "langues",
+          img: require("../assets/langues.png")
         },
         {
           title: "Cinéma",
-          color: "#6B4EE0",
-          color2:"#4E2CD8",
-          url: "cinema"
+          url: "cinema",
+          img: require("../assets/cinema.jpg")
         },
         {
           title: "Art",
-          color: "#C7BCF3",
-          color2:"#4E2CD8",
-          url: "art"
+          url: "art",
+          img: require("../assets/art.jpg")
         },
         {
           title: "Litterature",
-          color: "#6B4EE0",
-          color2:"#4E2CD8",
-          url: "litterature"
+          url: "litterature",
+          img: require("../assets/litterature.jpg")
         },
         {
           title: "Jeux vidéo",
-          color: "#A492EB",
-          color2:"#4E2CD8",
-          url: "jeuxvideo"
+          url: "jeuxvideo",
+          img: require("../assets/jeux.jpg")
         },
         {
           title: "Sport",
-          color: "#8269E4",
-          color2:"#4E2CD8",
-          url: "sport"
+          url: "sport",
+          img: require("../assets/sport.jpg")
         },
         {
           title: "Sciences",
-          color: "#6B4EE0",
-          color2:"#4E2CD8",
-          url: "sciences"
+          url: "sciences",
+          img: require("../assets/science.jpg")
         },
         {
           title: "Musique",
-          color: "#A492EB",
-          color2:"#4E2CD8",
-          url: "musique"
+          url: "musique",
+          img: require("../assets/music.jpg")
         },
         {
           title: "Enfants",
-          color: "#8269E4",
-          color2:"#4E2CD8",
-          url: "enfants"
+          url: "enfants",
+          img: require("../assets/enfant.jpg")
         }
       ]
     };
@@ -113,6 +104,15 @@ export default {
 </script>
 
 <style>
+
+.infoTitle {
+  font-size: 40px;
+  text-justify: auto;
+  padding-top: 20%;
+  color:white;
+  font-weight: bold;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
 
 </style>
 
