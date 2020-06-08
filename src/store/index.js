@@ -18,6 +18,18 @@ export default new Vuex.Store({
     setUser(state, payload) {
       state.user = payload
     },
+    updateUser(state, payload) {
+      const user = state.user
+      if(payload.email) {
+        user.email = payload.email
+      }
+      if(payload.pseudo) {
+        user.pseudo = payload.pseudo
+      }
+      if(payload.nbGames) {
+        user.nbGames = payload.nbGames
+      }
+    },
     setLoading(state, payload) {
       state.loading = payload
     },
@@ -41,7 +53,6 @@ export default new Vuex.Store({
               id: user.user.uid,
               email: payload.email,
               pseudo: payload.pseudo,
-              score: 0,
               nbGames: 0
             }
             commit('setUser', newUser),
@@ -65,7 +76,6 @@ export default new Vuex.Store({
                 id: snapshot.val().id,
                 email: user.user.email,
                 pseudo: snapshot.val().pseudo,
-                score: snapshot.val().score,
                 nbGames: snapshot.val().nbGames
               }
               commit('setUser', newUser)
@@ -88,6 +98,27 @@ export default new Vuex.Store({
           }
         )
       commit('setUser', null)
+    },
+    updateUserData({commit}, payload) {
+      const updateObj = {}
+      if(payload.email) {
+        updateObj.email = payload.email
+      }
+      if(payload.pseudo) {
+        updateObj.pseudo = payload.pseudo
+      }
+      if(payload.nbGames) {
+        updateObj.nbGames = payload.nbGames + 1
+      }
+      firebase.database().ref('users').child(payload.id).update(updateObj)
+        .then(() => {
+          commit('setLoading', false)
+          commit('updateUser', payload)
+        })
+        .catch(error => {
+          console.log(error)
+          commit('setLoading',false)
+        })
     },
     //Créé une question et la stocke dans la bdd
     createQuestion({ commit }, payload) {
