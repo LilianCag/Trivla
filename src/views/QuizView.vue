@@ -270,9 +270,10 @@ export default {
           date: this.currentQuestion.date
         });
 
-
       this.audiencePoll = false
-      this.isAnswered = false;
+      this.isAnswered = false
+      this.liked = false
+      this.disliked = false
       if (this.questionCount < this.questionNumber) {
         for (let answer in this.currentQuestion.answers) {
           document.getElementById(
