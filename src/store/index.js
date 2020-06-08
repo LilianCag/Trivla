@@ -20,13 +20,13 @@ export default new Vuex.Store({
     },
     updateUser(state, payload) {
       const user = state.user
-      if(payload.email) {
+      if (payload.email) {
         user.email = payload.email
       }
-      if(payload.pseudo) {
+      if (payload.pseudo) {
         user.pseudo = payload.pseudo
       }
-      if(payload.nbGames) {
+      if (payload.nbGames) {
         user.nbGames = payload.nbGames
       }
     },
@@ -90,7 +90,7 @@ export default new Vuex.Store({
     },
     //Fonction de déconnexion
     logoutUser({ commit }) {
-      firebase.auth().signOut().then(function() {
+      firebase.auth().signOut().then(function () {
       })
         .catch(
           error => {
@@ -99,15 +99,15 @@ export default new Vuex.Store({
         )
       commit('setUser', null)
     },
-    updateUserData({commit}, payload) {
+    updateUserData({ commit }, payload) {
       const updateObj = {}
-      if(payload.email) {
+      if (payload.email) {
         updateObj.email = payload.email
       }
-      if(payload.pseudo) {
+      if (payload.pseudo) {
         updateObj.pseudo = payload.pseudo
       }
-      if(payload.nbGames) {
+      if (payload.nbGames) {
         updateObj.nbGames = payload.nbGames + 1
       }
       firebase.database().ref('users').child(payload.id).update(updateObj)
@@ -117,7 +117,7 @@ export default new Vuex.Store({
         })
         .catch(error => {
           console.log(error)
-          commit('setLoading',false)
+          commit('setLoading', false)
         })
     },
     //Créé une question et la stocke dans la bdd
@@ -151,7 +151,7 @@ export default new Vuex.Store({
     loadQuestions({ commit }, cat) {
       commit('setLoading', true)
       if (cat === "Général") {
-        commit('setLoadedQuestions',[])
+        commit('setLoadedQuestions', [])
         const categories = ["Histoire", "Géographie", "Langues", "Cinéma", "Art", "Littérature", "Jeux vidéo", "Sport", "Sciences", "Musique", "Enfants"]
         let index = -1
         for (let i = 0; i < 10; i++) {
@@ -179,7 +179,7 @@ export default new Vuex.Store({
                 likes: obj[key].likes,
                 dislikes: obj[key].dislikes,
                 nbPlayed: obj[key].nbPlayed,
-                people: obj[key].people,
+                peopleAnswers: obj[key].peopleAnswers,
                 date: obj[key].date
               })
               commit('createQuestion', questions[0])
@@ -221,7 +221,7 @@ export default new Vuex.Store({
                   likes: obj[key].likes,
                   dislikes: obj[key].dislikes,
                   nbPlayed: obj[key].nbPlayed,
-                  people: obj[key].people,
+                  peopleAnswers: obj[key].peopleAnswers,
                   date: obj[key].date
                 })
               }
@@ -239,12 +239,54 @@ export default new Vuex.Store({
       }
 
     },
+    updateQuestionData({ commit }, payload) {
+      const updateObj = {}
+      updateObj.author = payload.author
+      updateObj.title = payload.title
+      updateObj.answers = payload.answers
+      updateObj.correctAnswer = payload.correctAnswer
+      updateObj.category = payload.category
+      updateObj.likes = payload.likes
+      updateObj.dislikes = payload.dislikes
+      updateObj.nbPlayed = payload.nbPlayed
+      updateObj.peopleAnswers = payload.peopleAnswers
+      updateObj.date = payload.date
 
-    autoSignIn({ commit }, payload) {
-      firebase.database().ref('/users').child(payload.uid).once("value", function(snapshot) {
-              commit('setUser', { id: snapshot.val().id, email: snapshot.val().email, pseudo: snapshot.val().pseudo, score: snapshot.val().score, nbGames: snapshot.val().nbGames})
+      if (updateObj.likes + updateObj.dislikes > 10) {
+        firebase.database().ref('/questions/' + updateObj.category).once('value')
+          .then(function (snapshot) {
+            if ((((updateObj.dislikes / (updateObj.likes + updateObj.dislikes)) * 100) > 75)
+              && snapshot.numChildren() > 10) {
+              firebase.database().ref('/questions/' + updateObj.category).child(payload.id).remove()
+            }
+            else {
+              firebase.database().ref('/questions/'+updateObj.category).child(payload.id).update(updateObj)
+                .then(() => {
+                  commit('setLoading', false)
+                })
+                .catch(error => {
+                  console.log(error)
+                  commit('setLoading', false)
+                })
+            }
           })
-  }
+      }
+      else {
+        firebase.database().ref('/questions/'+updateObj.category).child(payload.id).update(updateObj)
+                .then(() => {
+                  commit('setLoading', false)
+                })
+                .catch(error => {
+                  console.log(error)
+                  commit('setLoading', false)
+                })
+      }
+    },
+    autoSignIn({ commit }, payload) {
+      firebase.database().ref('/users').child(payload.uid).once("value", function (snapshot) {
+        commit('setUser', { id: snapshot.val().id, email: snapshot.val().email, pseudo: snapshot.val().pseudo, score: snapshot.val().score, nbGames: snapshot.val().nbGames })
+      })
+    }
   },
   modules: {
   },
