@@ -244,7 +244,6 @@ export default {
     },
     endQuiz(){
       this.gameOver = true
-      console.log(this.$store.getters.user)
       if(this.userIsAuthenticated) {
         const user = this.$store.getters.user
         this.$store.dispatch('updateUserData', {
@@ -252,7 +251,6 @@ export default {
           email: user.email,
           pseudo: user.pseudo, 
           nbGames : user.nbGames+1})
-        console.log(this.$store.getters.user)
       }
     },
     setQuestions() {
