@@ -18,7 +18,7 @@
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Pseudo </span>
               <br/>
-              <span class="infos">{{login}} </span>
+              <span class="infos">{{ login }} </span>
             </v-flex>
 
             <v-flex class="mb-3" xs12 md12 lg12>
@@ -30,19 +30,19 @@
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Adresse Email </span>
               <br/>
-              <span class="infos"> {{email}} </span>
+              <span class="infos"> {{ email }} </span>
             </v-flex>
 
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Score </span>
               <br/>
-              <span class="infos"> Score de l'utilisateur </span>
+              <span class="infos"> {{ score }} </span>
             </v-flex>
 
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Nombre de parties jouées </span>
               <br/>
-              <span class="infos"> Nombre de parties jouées de l'utilisateur </span>
+              <span class="infos"> {{ nbGames }} </span>
             </v-flex>
           </v-flex>
 
@@ -57,15 +57,19 @@ export default {
   data: () => ({
     login: "",
     password: "",
-    email: ""
+    email: "",
+    score: "",
+    nbGames: ""
   }),
   mounted: function() {
-    this.getPseudo();
+    this.getInfos();
   },
   methods : {
-    getPseudo() {
+    getInfos() {
       this.login = this.$store.state.user.pseudo;
       this.email = this.$store.state.user.email;
+      this.score = this.$store.state.user.score;
+      this.nbGames = this.$store.state.user.nbGames;
     },
   }
 

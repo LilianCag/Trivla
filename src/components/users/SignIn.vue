@@ -2,7 +2,11 @@
   <v-dialog v-model="dialog" max-width="600px">
     <!-- Bouton d'affichage de la popup de connexion -->
     <template v-slot:activator="{on}">
-      <v-btn v-on="on" color="#4E2CD8" depressed>Connexion</v-btn>
+      <v-btn v-on="on" color="#4E2CD8" depressed>
+        <v-icon > mdi-account-circle </v-icon> 
+        <span class="btn"> Connexion </span>
+        </v-btn>
+        
     </template>
 
     <!-- Toolbar de la popup de connexion -->
@@ -24,6 +28,7 @@
             color="#6B4EE0"
             type="text"
             required
+            :rules="emailRules"
           ></v-text-field>
 
           <v-text-field
@@ -35,6 +40,7 @@
             color="#6B4EE0"
             type="password"
             required
+            :rules="passwordRules"
           ></v-text-field>
         </v-card-text>
 
@@ -56,8 +62,17 @@ export default {
   data: () => ({
     dialog: false,
     login: "",
-    password: ""
+    password: "",
+    emailRules: [
+        v => !!v || 'Ce champ est obligatoire',
+        v => /.+@.+/.test(v) || 'Votre e-mail n\'est pas valide'
+      ],
+      passwordRules: [
+        (v) => !!v || 'Ce champ est obligatoire',
+        (v) => v.length > 5 || 'Votre mot de passe doit contenir 6 caractères minimum'
+      ]
   }),
+  
   props: {
     source: String
   },
@@ -82,7 +97,6 @@ export default {
     //Appelle la fonction d'inscription dans le store
     onSignIn() {
       if(this.login !== "" && this.password !== "") {    
-      //console.log(this.login),
       this.$store.dispatch("signUserIn", {
         email: this.login,
         password: this.password
@@ -92,3 +106,11 @@ export default {
   }
 };
 </script>
+
+<style>
+
+
+.btn {
+  padding: 5%;
+}
+</style>
