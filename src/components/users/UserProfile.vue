@@ -8,7 +8,7 @@
 
             <!-- Image de profil de l'utilisateur -->
             <v-avatar size="300">
-              <img src="../../assets/David_GoodEnough2.png" alt="David" />
+              <img src="../../assets/PlayerProfil.png" alt="Profil" />
             </v-avatar>
           </v-flex>
 
