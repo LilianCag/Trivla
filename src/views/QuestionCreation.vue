@@ -153,7 +153,6 @@ export default {
           this.correctAnswer = answerList[this.answerSelected-1]
           let dateTemp = new Date()
           let stringDate = ""+ ("0" + dateTemp.getDate()).slice(-2)+"/"+("0" + (dateTemp.getMonth() + 1)).slice(-2)+"/"+ dateTemp.getFullYear()
-          console.log(stringDate)
           const questionData = {
               author: this.user.pseudo,
               title: this.title,

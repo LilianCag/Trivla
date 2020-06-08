@@ -71,7 +71,7 @@ export default {
           url: "art"
         },
         {
-          title: "Litterature",
+          title: "Littérature",
           color: "#6B4EE0",
           color2:"#4E2CD8",
           url: "litterature"
