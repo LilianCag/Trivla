@@ -33,7 +33,6 @@
               <span class="infos"> {{ email }} </span>
             </v-flex>
 
-
             <v-flex class="mb-3" xs12 md12 lg12>
               <span class="title"> Nombre de parties jouées </span>
               <br/>
@@ -53,7 +52,6 @@ export default {
     login: "",
     password: "",
     email: "",
-    score: "",
     nbGames: ""
   }),
   mounted: function() {
@@ -63,7 +61,6 @@ export default {
     getInfos() {
       this.login = this.$store.state.user.pseudo;
       this.email = this.$store.state.user.email;
-      this.score = this.$store.state.user.score;
       this.nbGames = this.$store.state.user.nbGames;
     },
   }

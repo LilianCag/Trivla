@@ -161,10 +161,22 @@
           <!-- PROGRESSION DANS LE QUIZ -->
           <v-progress-linear v-model="getProgress" color="purple" width="20" bottom striped></v-progress-linear>
         </v-card>
+
         <!-- DEMARRER LE QUIZ -->
-        <v-card v-else>
-          <v-btn @click="start">Démarrer</v-btn>
-        </v-card>
+        <v-layout justify-center v-else>
+          <v-card-actions>
+            <v-img
+              class="grow"
+              style="cursor: pointer;
+              margin-top:30%"
+              height="400px"
+              width="400px"
+              :src="require('../assets/letsgo.png')"
+              @click="start"
+            ></v-img>
+          </v-card-actions>
+        </v-layout>
+
         <!-- 
           GAME OVER 
         -->
@@ -175,7 +187,7 @@
               </v-toolbar-title>
             </v-layout>
           </v-toolbar>
-          <v-btn @click="goToHome">Revenir à l'accueil</v-btn>
+          <v-btn to="/">Revenir à l'accueil</v-btn>
         </v-dialog>
       </v-flex>
     </v-layout>
@@ -508,9 +520,26 @@ export default {
       this.liked = false;
       this.disliked = false;
     },
-    goToHome() {
-      this.$router.push("/");
-    }
   }
 };
 </script>
+
+
+<style>
+@keyframes rotation{
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg) scale(1.3);}
+}
+.grow {
+  transition: all 0.2s ease-in-out;
+}
+
+.grow:hover {
+  animation: rotation 0.7s;
+  transform: scale(1.3);
+}
+
+
+
+
+</style>
