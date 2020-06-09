@@ -27,7 +27,7 @@
           >{{formattedTimeLeft}}</v-progress-circular>
           <!-- 
             QUESTION 
-            -->
+          -->
           <v-layout align-center pa-3 style="margin-bottom:50px">
             <v-flex xs12 md12>
               <v-card v-model="currentQuestion">
@@ -39,7 +39,7 @@
                 <v-chip>Jouée {{currentQuestion.nbPlayed}} fois</v-chip>
                 <!-- 
                   JOKERS
-                  -->
+                -->
                 <!-- 5050 -->
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
@@ -69,7 +69,7 @@
                 </v-tooltip>
                 <!-- 
                   INTITULE DE LA QUESTION 
-                  -->
+                -->
                 <p style="font-size:48px;color:#4E2CD8;font-weight:bold;">{{currentQuestion.title}}</p>
               </v-card>
             </v-flex>
@@ -78,7 +78,7 @@
 
             REPONSES
 
-            -->
+          -->
           <v-item-group mandatory>
             <v-container>
               <v-layout>
@@ -101,10 +101,15 @@
                         :disabled="isAnswered"
                       >
                         <v-layout align-center justify-center>
-                          <span style="font-size:1.5em; color: white; text-align:center">{{ answer }}</span>
+                          <span
+                            style="font-size:1.5em; color: white; text-align:center"
+                          >{{ answer }}</span>
                         </v-layout>
                         <!-- Avis des internautes -->
-                        <label v-if="audiencePoll" value="audienceTab">{{audienceTab[currentQuestion.answers.indexOf(answer)]}} % </label>
+                        <label
+                          v-if="audiencePoll"
+                          value="audienceTab"
+                        >{{audienceTab[currentQuestion.answers.indexOf(answer)]}} %</label>
                       </v-card>
                     </v-item>
                   </v-col>
@@ -115,30 +120,41 @@
 
           <!-- POUCE VERT POUCE ROUGE -->
           <div v-if="isAnswered">
-          <div v-if="userIsAuthenticated">
-          <v-btn @click="likeButton" :dark=liked>
-            <v-icon >mdi-thumb-up-outline</v-icon>
-          </v-btn>
-          <v-btn @click="dislikeButton" :dark=disliked>
-            <v-icon >mdi-thumb-down-outline</v-icon>
-          </v-btn>
-          </div>
-          <!-- QUESTION SUIVANTE -->
-          <v-btn
-            @click="nextQuestion"
-            v-if="questionCount<questionNumber"
-            :disabled="!isAnswered"
-          >Question suivante</v-btn>
-          <!-- FIN DU QUIZ -->
-          <v-btn @click="endQuiz" v-if="questionCount==questionNumber">Fin du quiz</v-btn>
+            <div v-if="userIsAuthenticated">
+              <v-btn @click="likeButton" :dark="liked">
+                <v-icon>mdi-thumb-up-outline</v-icon>
+              </v-btn>
+              <v-btn @click="dislikeButton" :dark="disliked">
+                <v-icon>mdi-thumb-down-outline</v-icon>
+              </v-btn>
+            </div>
+            <!-- QUESTION SUIVANTE -->
+            <v-btn
+              @click="nextQuestion"
+              v-if="questionCount<questionNumber"
+              :disabled="!isAnswered"
+            >Question suivante</v-btn>
+            <!-- FIN DU QUIZ -->
+            <v-btn @click="endQuiz" v-if="questionCount==questionNumber">Fin du quiz</v-btn>
           </div>
           <!-- PROGRESSION DANS LE QUIZ -->
           <v-progress-linear v-model="getProgress" color="purple"></v-progress-linear>
         </v-card>
+
         <!-- DEMARRER LE QUIZ -->
-        <v-card v-else>
-          <v-btn @click="start">Démarrer</v-btn>
-        </v-card>
+        <v-layout justify-center v-else>
+          <v-card-actions>
+            <v-img
+              style="cursor: pointer;
+              margin-top:20%"
+              height="500px"
+              width="500px"
+              :src="require('../assets/letsgo.png')"
+              @click="start"
+            ></v-img>
+          </v-card-actions>
+        </v-layout>
+
         <!-- 
           GAME OVER 
         -->
@@ -218,8 +234,8 @@ export default {
   mounted: function() {
     //Charge les questions depuis la bdd
     /*
-    * CHANGER CE IF !
-    */
+     * CHANGER CE IF !
+     */
     if (this.category == null) {
       this.category = "Général";
     }
@@ -252,8 +268,8 @@ export default {
       return this.$store.getters.loading;
     },
     /*
-    * Retourne si les jokers sont utilisables
-    */
+     * Retourne si les jokers sont utilisables
+     */
     isTimerFreezeAvailable() {
       return this.isTimerFreezeUsed || this.isAnswered;
     },
@@ -280,14 +296,14 @@ export default {
       this.runTimer();
     },
     /*
-    * CLIC SUR UNE REPONSE (ou fin du timer)
-    */
+     * CLIC SUR UNE REPONSE (ou fin du timer)
+     */
     pickAnswer(answer) {
       /*
-      * Si la réponse donnée est correcte on l'affiche en vert
-      * Si la réponse donnée est fausse on l'affiche en rouge
-      *     et on affiche la bonne réponse en vert
-      */
+       * Si la réponse donnée est correcte on l'affiche en vert
+       * Si la réponse donnée est fausse on l'affiche en rouge
+       *     et on affiche la bonne réponse en vert
+       */
       if (this.currentQuestion.correctAnswer === answer) {
         this.score++;
         document.getElementById(answer).style.backgroundColor = "green";
@@ -301,9 +317,11 @@ export default {
       }
 
       //Mise à jour des tableaux dans l'objet question
-      if(this.currentQuestion.answers.indexOf(answer) != -1) {
-        this.currentQuestion.peopleAnswers[this.currentQuestion.answers.indexOf(answer)] ++
-        this.currentQuestion.nbPlayed = this.currentQuestion.nbPlayed + 1
+      if (this.currentQuestion.answers.indexOf(answer) != -1) {
+        this.currentQuestion.peopleAnswers[
+          this.currentQuestion.answers.indexOf(answer)
+        ]++;
+        this.currentQuestion.nbPlayed = this.currentQuestion.nbPlayed + 1;
       }
 
       this.pauseTimer();
@@ -311,35 +329,35 @@ export default {
       this.questionCount++;
     },
     /*
-    * PASSAGE A LA QUESTION SUIVANTE
-    */
+     * PASSAGE A LA QUESTION SUIVANTE
+     */
     nextQuestion() {
       // Maj de la question dans la BDD
-      if(this.liked) {
-        this.currentQuestion.likes++
+      if (this.liked) {
+        this.currentQuestion.likes++;
       }
-      if(this.disliked) {
-        this.currentQuestion.dislikes++
+      if (this.disliked) {
+        this.currentQuestion.dislikes++;
       }
       this.$store.dispatch("updateQuestionData", {
-          id: this.currentQuestion.id,
-          author: this.currentQuestion.author,
-          title: this.currentQuestion.title,
-          answers: this.currentQuestion.answers,
-          correctAnswer: this.currentQuestion.correctAnswer,
-          category: this.currentQuestion.category,
-          likes: this.currentQuestion.likes,
-          dislikes: this.currentQuestion.dislikes,
-          nbPlayed: this.currentQuestion.nbPlayed,
-          peopleAnswers: this.currentQuestion.peopleAnswers,
-          date: this.currentQuestion.date
-        });
+        id: this.currentQuestion.id,
+        author: this.currentQuestion.author,
+        title: this.currentQuestion.title,
+        answers: this.currentQuestion.answers,
+        correctAnswer: this.currentQuestion.correctAnswer,
+        category: this.currentQuestion.category,
+        likes: this.currentQuestion.likes,
+        dislikes: this.currentQuestion.dislikes,
+        nbPlayed: this.currentQuestion.nbPlayed,
+        peopleAnswers: this.currentQuestion.peopleAnswers,
+        date: this.currentQuestion.date
+      });
 
       // Reset de l'affichage
-      this.audiencePoll = false
-      this.isAnswered = false
-      this.liked = false
-      this.disliked = false
+      this.audiencePoll = false;
+      this.isAnswered = false;
+      this.liked = false;
+      this.disliked = false;
       // Passage à la question suivante
       if (this.questionCount < this.questionNumber) {
         for (let answer in this.currentQuestion.answers) {
@@ -355,29 +373,29 @@ export default {
       this.runTimer();
     },
     /*
-    * FIN DU QUIZ
-    */
+     * FIN DU QUIZ
+     */
     endQuiz() {
       // Dernière màj de question dans la bdd
-      if(this.liked) {
-        this.currentQuestion.likes++
+      if (this.liked) {
+        this.currentQuestion.likes++;
       }
-      if(this.disliked) {
-        this.currentQuestion.dislikes++
+      if (this.disliked) {
+        this.currentQuestion.dislikes++;
       }
       this.$store.dispatch("updateQuestionData", {
-          id: this.currentQuestion.id,
-          author: this.currentQuestion.author,
-          title: this.currentQuestion.title,
-          answers: this.currentQuestion.answers,
-          correctAnswer: this.currentQuestion.correctAnswer,
-          category: this.currentQuestion.category,
-          likes: this.currentQuestion.likes,
-          dislikes: this.currentQuestion.dislikes,
-          nbPlayed: this.currentQuestion.nbPlayed,
-          peopleAnswers: this.currentQuestion.peopleAnswers,
-          date: this.currentQuestion.date
-        });
+        id: this.currentQuestion.id,
+        author: this.currentQuestion.author,
+        title: this.currentQuestion.title,
+        answers: this.currentQuestion.answers,
+        correctAnswer: this.currentQuestion.correctAnswer,
+        category: this.currentQuestion.category,
+        likes: this.currentQuestion.likes,
+        dislikes: this.currentQuestion.dislikes,
+        nbPlayed: this.currentQuestion.nbPlayed,
+        peopleAnswers: this.currentQuestion.peopleAnswers,
+        date: this.currentQuestion.date
+      });
       this.gameOver = true;
       // Ajout d'une partie jouée dans l'objet utilisateur
       if (this.userIsAuthenticated) {
@@ -400,8 +418,8 @@ export default {
       this.currentQuestion = this.questions[this.questionCount];
     },
     /*
-    * TIMER
-    */
+     * TIMER
+     */
     runTimer() {
       this.timeLimit = 10;
       this.timePassed = 0;
@@ -412,12 +430,12 @@ export default {
       clearInterval(this.timerInterval);
     },
     /*
-    * JOKERS
-    */
+     * JOKERS
+     */
     jokerTimerFreeze() {
-      this.pauseTimer()
-      this.timerColor = "cyan"
-      this.isTimerFreezeUsed = true
+      this.pauseTimer();
+      this.timerColor = "cyan";
+      this.isTimerFreezeUsed = true;
     },
     jokerFiftyFifty() {
       let erase = [];
@@ -439,49 +457,50 @@ export default {
           "red";
         document.getElementById(erase[answerToErase]).style.opacity = 0;
       }
-      this.isFiftyFiftyUsed = true
+      this.isFiftyFiftyUsed = true;
     },
     jokerAudiencePoll() {
-      this.isAudiencePollUsed = true
-      this.audiencePoll = true
+      this.isAudiencePollUsed = true;
+      this.audiencePoll = true;
       //Si la question a déjà été jouée on affiche le tableau peopleAnswers
-      if(this.currentQuestion.nbPlayed > 0) {
-        for(let answer in this.currentQuestion.answers) {
-          this.audienceTab[answer] = Math.round((this.currentQuestion.peopleAnswers[answer]/this.currentQuestion.nbPlayed)*100)
+      if (this.currentQuestion.nbPlayed > 0) {
+        for (let answer in this.currentQuestion.answers) {
+          this.audienceTab[answer] = Math.round(
+            (this.currentQuestion.peopleAnswers[answer] /
+              this.currentQuestion.nbPlayed) *
+              100
+          );
         }
       }
       //Sinon on affiche 25 pour ne pas avoir à diviser par zéro
       else {
-        for(let answer in this.currentQuestion.answers) {
-          this.audienceTab[answer] = 25
+        for (let answer in this.currentQuestion.answers) {
+          this.audienceTab[answer] = 25;
         }
       }
     },
     // J'aime
     likeButton() {
-      if(this.liked) {
-        this.unlike()
+      if (this.liked) {
+        this.unlike();
+      } else {
+        this.liked = true;
+        this.disliked = false;
       }
-      else {
-        this.liked = true
-        this.disliked = false
-      }
-      
     },
     // J'aime pas
     dislikeButton() {
-      if(this.disliked) {
-        this.unlike()
-      }
-      else {
-        this.liked = false
-        this.disliked = true
+      if (this.disliked) {
+        this.unlike();
+      } else {
+        this.liked = false;
+        this.disliked = true;
       }
     },
     // Recliquer sur J'aime/J'aime pas
     unlike() {
-      this.liked = false
-      this.disliked = false
+      this.liked = false;
+      this.disliked = false;
     }
   }
 };

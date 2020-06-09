@@ -1,6 +1,6 @@
   // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "xxxxxxxxxxxxx",
+    apiKey: "AIzaSyDnTEZNJSwUZO_h5MHDp0ta4jIfHrRMl5I",
     authDomain: "trivla.firebaseapp.com",
     databaseURL: "https://trivla.firebaseio.com",
     projectId: "trivla",

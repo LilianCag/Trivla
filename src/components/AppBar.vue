@@ -54,7 +54,6 @@
         </v-btn>
         <v-snackbar
         color="#6344DD"
-        timeout="2000"
         v-model="snackbar">Connectez-vous pour soumettre une question.</v-snackbar>
     
       <SignIn />
