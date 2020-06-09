@@ -8,6 +8,7 @@ import Error404 from '../components/404.vue'
 import QuizView from '../views/QuizView.vue'
 import UserProfile from '../components/users/UserProfile.vue'
 import AuthGuard from './auth-guard.js'
+import About from '../views/About.vue'
 
 Vue.use(VueRouter);
 
@@ -71,6 +72,14 @@ const routes = [
         props: true,
         meta: {
             title: "Quiz (en test) - Trivla"
+        }
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: About,
+        meta: {
+            title: "A propos - Trivla"
         }
     }
 ];
