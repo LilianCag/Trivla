@@ -1,6 +1,17 @@
 <template>
-    <v-content>
-        <v-divider/>
-        <router-link :to="{name:'about'}"><p style="text-align:center">A propos</p></router-link>
-    </v-content>
+    <v-footer app color="#6B4EE0" dark>
+        <v-layout align-center justify-center>
+            <router-link :to="{name:'about'}" style="text-decoration: none;">
+                <span class="footstyle">A propos</span>
+            </router-link>
+        </v-layout>
+    </v-footer>
 </template>
+
+<style>
+
+.footstyle{
+    color:white;
+    text-align: center;
+}
+</style>
