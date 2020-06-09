@@ -100,6 +100,12 @@
         </v-flex>
       </v-layout>
     </v-form>
+    <v-dialog width=200 v-model="dialog">
+      <v-toolbar color="#6B4EE0" dark flat>
+        <v-toolbar-title>Question soumise<br></v-toolbar-title>
+      </v-toolbar>
+      <v-btn @click="goToHome">OK</v-btn>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -132,7 +138,9 @@ export default {
         "Sciences",
         "Musique",
         "Enfants"
-      ]
+      ],
+      // Fenêtre de dialogue
+      dialog: false
     };
   },
   computed: {
@@ -195,6 +203,9 @@ export default {
         date: stringDate
       };
       this.$store.dispatch("createQuestion", questionData);
+      this.dialog = true
+    },
+    goToHome() {
       this.$router.push("/");
     }
   }
