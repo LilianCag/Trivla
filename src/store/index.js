@@ -4,7 +4,6 @@ import * as firebase from 'firebase'
 import 'firebase/database'
 
 
-
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
@@ -272,8 +271,8 @@ export default new Vuex.Store({
       /* GESTION DE LA POPULARITE (J'aime/J'aime pas)
       * Une question sera supprimée si :
       * - il y a plus de 10 questions dans sa catégorie
-      * - elle a obtenu plus de 10 avis
-      * - son taux de dislikes dépasse 75 %
+      * & elle a obtenu plus de 10 avis
+      * & son taux de dislikes dépasse 75 %
       */
       if (updateObj.likes + updateObj.dislikes > 10) { // Condition des 10 avis ici pour éviter la division par zéro
         firebase.database().ref('/questions/' + updateObj.category).once('value')

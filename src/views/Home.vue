@@ -12,7 +12,6 @@
                   class="d-flex align-center"
                   width="500px"
                   height="200px"
-                 
                 >
                 <v-img
                 height="200px"

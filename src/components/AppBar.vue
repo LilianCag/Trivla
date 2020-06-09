@@ -78,6 +78,9 @@ export default {
         this.$store.getters.user !== null &&
         this.$store.getters.user !== undefined
       );
+    },
+    timeout() {
+      return Number("2000")
     }
   },
   methods: {
