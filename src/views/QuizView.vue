@@ -170,8 +170,10 @@
         -->
         <v-dialog width="500" v-model="gameOver">
           <v-toolbar color="#6B4EE0" dark flat>
-            <v-toolbar-title> Votre score est de {{score}} / {{questionCount}}
-            </v-toolbar-title>
+            <v-layout align-center justify-center>
+              <v-toolbar-title> Votre score est de {{score}} / {{questionCount}}
+              </v-toolbar-title>
+            </v-layout>
           </v-toolbar>
           <v-btn @click="goToHome">Revenir à l'accueil</v-btn>
         </v-dialog>
