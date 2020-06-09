@@ -41,10 +41,8 @@
         <span class="btn"> Se déconnecter </span>
       </v-btn>
     </div>
-    <!-- Bouton de connexion -->
+    
     <div v-else>
-
-        
         <!-- Bouton de création de quizz -->
         <v-btn
           text
@@ -54,9 +52,8 @@
         </v-btn>
         <v-snackbar
         color="#6344DD"
-        timeout="2000"
         v-model="snackbar">Connectez-vous pour soumettre une question.</v-snackbar>
-    
+    <!-- Bouton de connexion -->
       <SignIn />
     </div>
   </v-app-bar>

@@ -12,5 +12,5 @@
         <br>
         Amusez-vous bien sur Trivla !
     </p></div>
-  </v-container>
+  </v-container> 
 </template>

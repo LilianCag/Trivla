@@ -71,8 +71,8 @@ const routes = [
         component: QuizView,
         props: true,
         meta: {
-            title: "Quiz (en test) - Trivla"
-        }
+            title: "Quiz - Trivla"
+        },
     },
     {
         path: '/about',

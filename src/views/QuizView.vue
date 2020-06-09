@@ -217,13 +217,7 @@ export default {
   },
   mounted: function() {
     //Charge les questions depuis la bdd
-    /*
-    * CHANGER CE IF !
-    */
-    if (this.category == null) {
-      this.category = "Général";
-    }
-    this.$store.dispatch("loadQuestions", this.category);
+    this.$store.dispatch("loadQuestions", this.currentCategory);
   },
   computed: {
     // Retourne la progression dans le quiz
@@ -269,6 +263,14 @@ export default {
         this.$store.getters.user !== null &&
         this.$store.getters.user !== undefined
       );
+    },
+    currentCategory() {
+      if(this.category == null) {
+        return "Général"
+      }
+      else {
+        return this.category
+      }
     }
   },
   methods: {
