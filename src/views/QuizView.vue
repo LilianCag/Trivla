@@ -183,8 +183,7 @@
         <v-dialog width="500" v-model="gameOver">
           <v-toolbar color="#6B4EE0" dark flat>
             <v-layout align-center justify-center>
-              <v-toolbar-title> Votre score est de {{score}} / {{questionCount}}
-              </v-toolbar-title>
+              <v-toolbar-title>Votre score est de {{score}} / {{questionCount}}</v-toolbar-title>
             </v-layout>
           </v-toolbar>
           <v-btn to="/">Revenir à l'accueil</v-btn>
@@ -226,6 +225,7 @@ export default {
       // Jokers
       isTimerFreezeUsed: false,
       isFiftyFiftyUsed: false,
+      fiftyfiftyTab: [false, false, false, false],
       isAudiencePollUsed: false,
       audiencePoll: false,
       audienceTab: [],
@@ -317,34 +317,36 @@ export default {
      * CLIC SUR UNE REPONSE (ou fin du timer)
      */
     pickAnswer(answer) {
-      /*
-       * Si la réponse donnée est correcte on l'affiche en vert
-       * Si la réponse donnée est fausse on l'affiche en rouge
-       *     et on affiche la bonne réponse en vert
-       */
-      if (this.currentQuestion.correctAnswer === answer) {
-        this.score++;
-        document.getElementById(answer).style.backgroundColor = "green";
-      } else {
-        if (this.currentQuestion.answers.indexOf(answer) != -1) {
-          document.getElementById(answer).style.backgroundColor = "red";
+      if (!this.fiftyfiftyTab[this.currentQuestion.answers.indexOf(answer)]) {
+        /*
+         * Si la réponse donnée est correcte on l'affiche en vert
+         * Si la réponse donnée est fausse on l'affiche en rouge
+         *     et on affiche la bonne réponse en vert
+         */
+        if (this.currentQuestion.correctAnswer === answer) {
+          this.score++;
+          document.getElementById(answer).style.backgroundColor = "green";
+        } else {
+          if (this.currentQuestion.answers.indexOf(answer) != -1) {
+            document.getElementById(answer).style.backgroundColor = "red";
+          }
+          document.getElementById(
+            this.currentQuestion.correctAnswer
+          ).style.backgroundColor = "green";
         }
-        document.getElementById(
-          this.currentQuestion.correctAnswer
-        ).style.backgroundColor = "green";
-      }
 
-      //Mise à jour des tableaux dans l'objet question
-      if (this.currentQuestion.answers.indexOf(answer) != -1) {
-        this.currentQuestion.peopleAnswers[
-          this.currentQuestion.answers.indexOf(answer)
-        ]++;
-        this.currentQuestion.nbPlayed = this.currentQuestion.nbPlayed + 1;
-      }
+        //Mise à jour des tableaux dans l'objet question
+        if (this.currentQuestion.answers.indexOf(answer) != -1) {
+          this.currentQuestion.peopleAnswers[
+            this.currentQuestion.answers.indexOf(answer)
+          ]++;
+          this.currentQuestion.nbPlayed = this.currentQuestion.nbPlayed + 1;
+        }
 
-      this.pauseTimer();
-      this.isAnswered = true;
-      this.questionCount++;
+        this.pauseTimer();
+        this.isAnswered = true;
+        this.questionCount++;
+      }
     },
     /*
      * PASSAGE A LA QUESTION SUIVANTE
@@ -385,6 +387,10 @@ export default {
           document.getElementById(
             this.currentQuestion.answers[answer]
           ).style.opacity = 100;
+          document.getElementById(
+            this.currentQuestion.answers[answer]
+          ).style.cursor = "pointer";
+          this.fiftyfiftyTab[answer] = false;
         }
         this.setCurrentQuestion();
       }
@@ -467,13 +473,13 @@ export default {
           erase.indexOf(this.currentQuestion.answers[index]) != 0
         ) {
           erase.push(this.currentQuestion.answers[index]);
+          this.fiftyfiftyTab[index] = true;
         }
       }
       //Màj de l'affichage
       for (let answerToErase in erase) {
-        document.getElementById(erase[answerToErase]).style.backgroundColor =
-          "red";
         document.getElementById(erase[answerToErase]).style.opacity = 0;
+        document.getElementById(erase[answerToErase]).style.cursor = "default";
       }
       this.isFiftyFiftyUsed = true;
     },
@@ -519,16 +525,20 @@ export default {
     unlike() {
       this.liked = false;
       this.disliked = false;
-    },
+    }
   }
 };
 </script>
 
 
 <style>
-@keyframes rotation{
-    0% {transform: rotate(0deg);}
-    100% {transform: rotate(360deg) scale(1.3);}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.3);
+  }
 }
 .grow {
   transition: all 0.2s ease-in-out;
@@ -538,8 +548,4 @@ export default {
   animation: rotation 0.7s;
   transform: scale(1.3);
 }
-
-
-
-
 </style>
