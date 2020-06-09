@@ -145,10 +145,11 @@
         <v-layout justify-center v-else>
           <v-card-actions>
             <v-img
+              class="grow"
               style="cursor: pointer;
-              margin-top:20%"
-              height="500px"
-              width="500px"
+              margin-top:30%"
+              height="400px"
+              width="400px"
               :src="require('../assets/letsgo.png')"
               @click="start"
             ></v-img>
@@ -505,3 +506,23 @@ export default {
   }
 };
 </script>
+
+
+<style>
+@keyframes rotation{
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg) scale(1.3);}
+}
+.grow {
+  transition: all 0.2s ease-in-out;
+}
+
+.grow:hover {
+  animation: rotation 0.7s;
+  transform: scale(1.3);
+}
+
+
+
+
+</style>
