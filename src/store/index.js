@@ -44,7 +44,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    //Fonction d'inscription
+    /*
+    * Fonction d'inscription
+    */
     signUserUp({ commit }, payload) {
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
@@ -65,7 +67,9 @@ export default new Vuex.Store({
           }
         )
     },
-    //Fonction de connexion
+    /*
+    * Fonction de connexion
+    */ 
     signUserIn({ commit }, payload) {
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(
@@ -88,7 +92,9 @@ export default new Vuex.Store({
           }
         )
     },
-    //Fonction de déconnexion
+    /*
+    * Fonction de déconnexion
+    */
     logoutUser({ commit }) {
       firebase.auth().signOut().then(function () {
       })
@@ -99,6 +105,9 @@ export default new Vuex.Store({
         )
       commit('setUser', null)
     },
+    /*
+    * Màj d'un utilisateur dans la bdd
+    */ 
     updateUserData({ commit }, payload) {
       const updateObj = {}
       if (payload.email) {
@@ -147,9 +156,14 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    //Charge les questions
+    /*
+    * Charge les questions
+    */
     loadQuestions({ commit }, cat) {
       commit('setLoading', true)
+      /*
+      * Si la catégorie est Général on charge des questions venant de toutes catégories
+      */ 
       if (cat === "Général") {
         commit('setLoadedQuestions', [])
         const categories = ["Histoire", "Géographie", "Langues", "Cinéma", "Art", "Littérature", "Jeux vidéo", "Sport", "Sciences", "Musique", "Enfants"]
@@ -166,8 +180,6 @@ export default new Vuex.Store({
               let key = ""
               index = Math.floor((Math.random() * ids.length))
               key = ids[index]
-
-
               indexList.push(index)
               questions.push({
                 id: key,
@@ -188,6 +200,9 @@ export default new Vuex.Store({
 
         }
       }
+      /*
+      * Sinon on charge des questions venant de la dîte catégorie
+      */
       else {
         firebase.database().ref('/questions/' + cat).once('value')
           .then((data) => {
@@ -235,11 +250,13 @@ export default new Vuex.Store({
               commit('setLoading', true)
             }
           )
-
       }
-
     },
+    /*
+    * Màj d'une question
+    */
     updateQuestionData({ commit }, payload) {
+      //Création d'un nouvel objet pour mettre à jour la bdd
       const updateObj = {}
       updateObj.author = payload.author
       updateObj.title = payload.title
@@ -252,15 +269,30 @@ export default new Vuex.Store({
       updateObj.peopleAnswers = payload.peopleAnswers
       updateObj.date = payload.date
 
-      if (updateObj.likes + updateObj.dislikes > 10) {
+      /* GESTION DE LA POPULARITE (J'aime/J'aime pas)
+      * Une question sera supprimée si :
+      * - il y a plus de 10 questions dans sa catégorie
+      * - elle a obtenu plus de 10 avis
+      * - son taux de dislikes dépasse 75 %
+      */
+      if (updateObj.likes + updateObj.dislikes > 10) { // Condition des 10 avis ici pour éviter la division par zéro
         firebase.database().ref('/questions/' + updateObj.category).once('value')
           .then(function (snapshot) {
             if ((((updateObj.dislikes / (updateObj.likes + updateObj.dislikes)) * 100) > 75)
               && snapshot.numChildren() > 10) {
+              //Suppresion de la question
               firebase.database().ref('/questions/' + updateObj.category).child(payload.id).remove()
+              .then(() => {
+                commit('setLoading', false)
+              })
+              .catch(error => {
+                console.log(error)
+                commit('setLoading', false)
+              }) 
             }
             else {
-              firebase.database().ref('/questions/'+updateObj.category).child(payload.id).update(updateObj)
+              //Màj dans la bdd
+              firebase.database().ref('/questions/'+updateObj.category).child(payload.id).update(updateObj) 
                 .then(() => {
                   commit('setLoading', false)
                 })
@@ -272,6 +304,7 @@ export default new Vuex.Store({
           })
       }
       else {
+        //Màj dans la bdd
         firebase.database().ref('/questions/'+updateObj.category).child(payload.id).update(updateObj)
                 .then(() => {
                   commit('setLoading', false)
@@ -291,6 +324,7 @@ export default new Vuex.Store({
   modules: {
   },
   getters: {
+    //Retourne l'utilisateur
     user(state) {
       return state.user
     },
@@ -306,12 +340,15 @@ export default new Vuex.Store({
         })
       }
     },
+    //Retourne l'état de chargement
     loading(state) {
       return state.loading
     },
+    //Retourne l'erreur
     error(state) {
       return state.error
     },
+    //Retourne la catégorie
     category(state) {
       return state.category
     }

@@ -1,13 +1,16 @@
 <template>
   <v-container>
+    <!-- CHARGEMENT -->
     <v-layout v-if="loading">
       <v-flex xs12 class="test-xs-center">
         <v-progress-circular indeterminate class="primary--text" :width="7" :size="70"></v-progress-circular>
       </v-flex>
     </v-layout>
+    <!-- QUIZ -->
     <v-layout v-else>
       <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
         <v-card v-if="isOn">
+          <!-- SCORE -->
           <v-progress-circular :size="75" rotate="-90" v-model="getProgressScore" color="purple">
             <label style="text-align:center">
               Score
@@ -15,18 +18,28 @@
               {{score}} / {{questionCount}}
             </label>
           </v-progress-circular>
+          <!-- TIMER -->
           <v-progress-circular
             :size="75"
             :value="(timeLeft/timeLimit)*100"
             :rotate="-90"
             :color="timerColor"
           >{{formattedTimeLeft}}</v-progress-circular>
+          <!-- 
+            QUESTION 
+            -->
           <v-layout align-center pa-3 style="margin-bottom:50px">
             <v-flex xs12 md12>
               <v-card v-model="currentQuestion">
+                <!-- CATEGORIE -->
                 <v-chip>{{currentQuestion.category}}</v-chip>
+                <!-- AUTEUR ET DATE -->
                 <v-chip>Soumise par {{currentQuestion.author}} le {{currentQuestion.date}}</v-chip>
+                <!-- NOMBRE DE TENTATIVES -->
                 <v-chip>Jouée {{currentQuestion.nbPlayed}} fois</v-chip>
+                <!-- 
+                  JOKERS
+                  -->
                 <!-- 5050 -->
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
@@ -54,11 +67,18 @@
                   </template>
                   <span>Congélation de Timer</span>
                 </v-tooltip>
+                <!-- 
+                  INTITULE DE LA QUESTION 
+                  -->
                 <p style="font-size:48px;color:#4E2CD8;font-weight:bold;">{{currentQuestion.title}}</p>
               </v-card>
             </v-flex>
           </v-layout>
+          <!-- 
 
+            REPONSES
+
+            -->
           <v-item-group mandatory>
             <v-container>
               <v-layout>
@@ -83,6 +103,7 @@
                         <v-layout align-center justify-center>
                           <span style="font-size:1.5em; color: white; text-align:center">{{ answer }}</span>
                         </v-layout>
+                        <!-- Avis des internautes -->
                         <label v-if="audiencePoll" value="audienceTab">{{audienceTab[currentQuestion.answers.indexOf(answer)]}} % </label>
                       </v-card>
                     </v-item>
@@ -102,18 +123,25 @@
             <v-icon >mdi-thumb-down-outline</v-icon>
           </v-btn>
           </div>
+          <!-- QUESTION SUIVANTE -->
           <v-btn
             @click="nextQuestion"
             v-if="questionCount<questionNumber"
             :disabled="!isAnswered"
           >Question suivante</v-btn>
+          <!-- FIN DU QUIZ -->
           <v-btn @click="endQuiz" v-if="questionCount==questionNumber">Fin du quiz</v-btn>
           </div>
+          <!-- PROGRESSION DANS LE QUIZ -->
           <v-progress-linear v-model="getProgress" color="purple"></v-progress-linear>
         </v-card>
+        <!-- DEMARRER LE QUIZ -->
         <v-card v-else>
           <v-btn @click="start">Démarrer</v-btn>
         </v-card>
+        <!-- 
+          GAME OVER 
+        -->
         <v-card v-if="gameOver">
           <v-progress-circular
             :size="500"
@@ -141,28 +169,40 @@ export default {
   },
   data() {
     return {
+      //Jeu en cours
       isOn: false,
+      // Question répondue
       isAnswered: false,
+      // Jeu terminé
       gameOver: false,
+      // Question actuelle (type: Question)
       currentQuestion: null,
+      // Numéro de la question en cours
       questionCount: 0,
+      // Nombre de questions au total
       questionNumber: 0,
+      // Nombre de réponses correctes du joueur
       score: 0,
+      // Tableau des questions
       questions: [],
+      // Timer
       timeLimit: 10,
       timePassed: 0,
       timerInterval: null,
       timerColor: "green",
+      // Jokers
       isTimerFreezeUsed: false,
       isFiftyFiftyUsed: false,
       isAudiencePollUsed: false,
       audiencePoll: false,
       audienceTab: [],
+      // Popularité
       liked: false,
       disliked: false
     };
   },
   watch: {
+    // Termine la partie que le timer atteint 0
     timeLeft() {
       if (this.timeLeft <= 3) {
         this.timerColor = "red";
@@ -176,21 +216,29 @@ export default {
     }
   },
   mounted: function() {
+    //Charge les questions depuis la bdd
+    /*
+    * CHANGER CE IF !
+    */
     if (this.category == null) {
       this.category = "Général";
     }
     this.$store.dispatch("loadQuestions", this.category);
   },
   computed: {
+    // Retourne la progression dans le quiz
     getProgress() {
       return (this.questionCount / this.questionNumber) * 100;
     },
+    // Retourne le score actuel du joueur
     getProgressScore() {
       return (this.score / this.questionNumber) * 100;
     },
+    // Retourne le temps restant
     timeLeft() {
       return this.timeLimit - this.timePassed;
     },
+    // Retourne le temps restant formaté
     formattedTimeLeft() {
       const timeLeft = this.timeLeft;
       let seconds = timeLeft % 60;
@@ -199,9 +247,13 @@ export default {
       }
       return `${seconds}`;
     },
+    // Retourne l'état de chargement
     loading() {
       return this.$store.getters.loading;
     },
+    /*
+    * Retourne si les jokers sont utilisables
+    */
     isTimerFreezeAvailable() {
       return this.isTimerFreezeUsed || this.isAnswered;
     },
@@ -211,6 +263,7 @@ export default {
     isAudiencePollAvailable() {
       return this.isAudiencePollUsed || this.isAnswered;
     },
+    // Retourne si un utilisateur est connecté
     userIsAuthenticated() {
       return (
         this.$store.getters.user !== null &&
@@ -226,8 +279,15 @@ export default {
       this.questionNumber = this.questions.length;
       this.runTimer();
     },
-    //Gère quand l'utilisateur clique sur une réponse
+    /*
+    * CLIC SUR UNE REPONSE (ou fin du timer)
+    */
     pickAnswer(answer) {
+      /*
+      * Si la réponse donnée est correcte on l'affiche en vert
+      * Si la réponse donnée est fausse on l'affiche en rouge
+      *     et on affiche la bonne réponse en vert
+      */
       if (this.currentQuestion.correctAnswer === answer) {
         this.score++;
         document.getElementById(answer).style.backgroundColor = "green";
@@ -239,8 +299,9 @@ export default {
           this.currentQuestion.correctAnswer
         ).style.backgroundColor = "green";
       }
+
+      //Mise à jour des tableaux dans l'objet question
       if(this.currentQuestion.answers.indexOf(answer) != -1) {
-        console.log(this.currentQuestion.peopleAnswers)
         this.currentQuestion.peopleAnswers[this.currentQuestion.answers.indexOf(answer)] ++
         this.currentQuestion.nbPlayed = this.currentQuestion.nbPlayed + 1
       }
@@ -249,7 +310,11 @@ export default {
       this.isAnswered = true;
       this.questionCount++;
     },
+    /*
+    * PASSAGE A LA QUESTION SUIVANTE
+    */
     nextQuestion() {
+      // Maj de la question dans la BDD
       if(this.liked) {
         this.currentQuestion.likes++
       }
@@ -270,10 +335,12 @@ export default {
           date: this.currentQuestion.date
         });
 
+      // Reset de l'affichage
       this.audiencePoll = false
       this.isAnswered = false
       this.liked = false
       this.disliked = false
+      // Passage à la question suivante
       if (this.questionCount < this.questionNumber) {
         for (let answer in this.currentQuestion.answers) {
           document.getElementById(
@@ -287,7 +354,11 @@ export default {
       }
       this.runTimer();
     },
+    /*
+    * FIN DU QUIZ
+    */
     endQuiz() {
+      // Dernière màj de question dans la bdd
       if(this.liked) {
         this.currentQuestion.likes++
       }
@@ -308,6 +379,7 @@ export default {
           date: this.currentQuestion.date
         });
       this.gameOver = true;
+      // Ajout d'une partie jouée dans l'objet utilisateur
       if (this.userIsAuthenticated) {
         const user = this.$store.getters.user;
         this.$store.dispatch("updateUserData", {
@@ -318,13 +390,18 @@ export default {
         });
       }
     },
+    // Charge les questions depuis le store
     setQuestions() {
       this.isOn = true;
       this.questions = this.$store.getters.loadedQuestions;
     },
+    // Paramètre la question en cours
     setCurrentQuestion() {
       this.currentQuestion = this.questions[this.questionCount];
     },
+    /*
+    * TIMER
+    */
     runTimer() {
       this.timeLimit = 10;
       this.timePassed = 0;
@@ -334,6 +411,9 @@ export default {
     pauseTimer() {
       clearInterval(this.timerInterval);
     },
+    /*
+    * JOKERS
+    */
     jokerTimerFreeze() {
       this.pauseTimer()
       this.timerColor = "cyan"
@@ -342,6 +422,7 @@ export default {
     jokerFiftyFifty() {
       let erase = [];
       let index = -1;
+      // Recherche de 2 réponses fausses à effacer
       while (erase.length < 2) {
         index = Math.floor(Math.random() * this.currentQuestion.answers.length);
         if (
@@ -352,6 +433,7 @@ export default {
           erase.push(this.currentQuestion.answers[index]);
         }
       }
+      //Màj de l'affichage
       for (let answerToErase in erase) {
         document.getElementById(erase[answerToErase]).style.backgroundColor =
           "red";
@@ -362,17 +444,20 @@ export default {
     jokerAudiencePoll() {
       this.isAudiencePollUsed = true
       this.audiencePoll = true
+      //Si la question a déjà été jouée on affiche le tableau peopleAnswers
       if(this.currentQuestion.nbPlayed > 0) {
         for(let answer in this.currentQuestion.answers) {
           this.audienceTab[answer] = Math.round((this.currentQuestion.peopleAnswers[answer]/this.currentQuestion.nbPlayed)*100)
         }
       }
+      //Sinon on affiche 25 pour ne pas avoir à diviser par zéro
       else {
         for(let answer in this.currentQuestion.answers) {
           this.audienceTab[answer] = 25
         }
       }
     },
+    // J'aime
     likeButton() {
       if(this.liked) {
         this.unlike()
@@ -383,6 +468,7 @@ export default {
       }
       
     },
+    // J'aime pas
     dislikeButton() {
       if(this.disliked) {
         this.unlike()
@@ -392,6 +478,7 @@ export default {
         this.disliked = true
       }
     },
+    // Recliquer sur J'aime/J'aime pas
     unlike() {
       this.liked = false
       this.disliked = false

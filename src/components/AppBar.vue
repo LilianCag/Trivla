@@ -75,6 +75,7 @@ export default {
     };
   },
   computed: {
+    // Retourne si l'utilisateur est connecté
     userIsAuthenticated() {
       return (
         this.$store.getters.user !== null &&
@@ -83,6 +84,7 @@ export default {
     }
   },
   methods: {
+    // Fonction déconnexion
     logOut() {
       if (this.userIsAuthenticated) {
         this.$store.dispatch("logoutUser");
