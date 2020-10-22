@@ -9,7 +9,7 @@
               <v-flex xs12 md12>
                 <v-text-field
                   v-model="title"
-                  label="Veuillez entrez votre question"
+                  label="Veuillez entrer votre question"
                   name="question"
                   prepend-icon="mdi-help"
                   color="#6B4EE0"
