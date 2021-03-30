@@ -1,7 +1,5 @@
 # Trivla
 
-Website link : https://trivla.web.app/
-
 Quizz app website
 
 Vue.js / Vuetify / Firebase
